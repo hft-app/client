@@ -33,13 +33,17 @@
 			<div class="container">
 				{{#meals}}
 					<div class="meal article">
-						<div class="photo">
-							<img src="{{photo}}" alt="Bild konnte nicht geladen werden">
-						</div>
+						{{#photo}}
+							<div class="photo">
+								<img src="{{.}}" alt="Bild konnte nicht geladen werden">
+							</div>
+						{{/photo}}
 						<div class="data">
 							<div class="title">{{title}}</div>
-							<a class="info icon-prepend icon" href="#legend">{{additives}}</a>
-							<div class="price">{{price}}</div>
+							<div class="details">
+								<a class="info icon-prepend icon" href="#legend">{{additives}}</a>
+								<div class="price">{{price}}</div>
+							</div>
 						</div>
 					</div>
 				{{/meals}}

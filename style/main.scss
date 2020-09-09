@@ -210,8 +210,6 @@ footer {
 	}
 	
 	&.meal {
-		display: flex;
-		
 		.photo {
 			position: relative;
 			display: flex;
@@ -227,8 +225,8 @@ footer {
 			}
 							
 			img {
-				width: 130px;
-				height: 130px;
+				width: 100%;
+				height: auto;
 				position: relative;
 			}
 		}
@@ -247,6 +245,12 @@ footer {
 			-webkit-box-orient: vertical;
 			overflow: hidden;
 			text-overflow: ellipsis;
+		}
+		
+		.details {
+			display: flex;
+			align-items: flex-end;
+			justify-content: space-between;
 		}
 		
 		.info {
