@@ -6,7 +6,7 @@
 			exams: { autoIncrement: true },
 			meals: { autoIncrement: true },
 			lectures: { autoIncrement: true },
-			events: { keyPath: 'id' },
+			events: { keyPath: 'id' }, // Needed for event export
 			professors: { autoIncrement: true },
 			tips: { autoIncrement: true },
 			printers: { autoIncrement: true },
@@ -141,7 +141,12 @@
 		}
 	}
 	
-	// Fetch a resource
+	/* Fetch a resource
+	 * App resouces are requested by their relative path in the repository, e.g. /template/core.html
+	 * Therefore they cannot be served from network when inside the launcher.
+	 * But they can be served from cache, as the launcher stores them with the appropriate (fake) path.
+	 * It has to be ensured that all app resources are cached and other requests like API calls use absolute paths.
+	 */
 	async fetch(request) {
 		return await caches.match(request) || await fetch(request);
 	}
