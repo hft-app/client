@@ -30,6 +30,7 @@
 			
 			'/style/main.scss',
 			'/style/login.scss',
+			'/style/error.scss',
 			
 			'/lang/de.json',
 			
@@ -45,12 +46,21 @@
 			'/template/_printers.html',
 			'/template/_professors.html',
 			'/template/_tips.html',
-			'/template/_error.html',
+			'/template/error.html',
 			'/template/shell.html',
 			'/template/login.html',
 			
 			'/launcher/meta.html',
 		];
+	}
+	
+	// Errors
+	get errors() {
+		return {
+			test: {
+				a: 'b',
+			},
+		};
 	}
 	
 	// Constructor
@@ -74,15 +84,16 @@
 	
 	// Exception handler
 	async exceptionHandler(exception) {
-		switch(exception) {
-			
-			// Redirect to login page
-			case 'InvalidDevice':
-			case 'InvalidCredentials': return Response.redirect('/logout');
-				
-			// Redirect to error page
-			default: return Response.redirect('/error/'+exception);
-		}
+		console.log('internal exception: ' + exception);
+		
+		const error = this.errors[exception];
+		if(!error) throw exception;
+		
+		/* TODO: always carry a 'session'-attribute in API calls, logout if false in regular request routine */
+		if(['InvalidDevice', 'InvalidCredentials'].includes(exception)) await this.logout();
+		
+		const template = await this.fetch('/template/error.html').then(response => response.text());
+		return this.wrap(Elements.render(template, error));
 	}
 	
 	// Response filter
@@ -95,14 +106,7 @@
 		if(response) {
 			const language = await this.fetch('/lang/de.json').then(response => response.json());
 			const translated = new Elements({open: '[[', close: ']]'}).render(response, language);
-			return new Response(translated, {
-				status: 200,
-				statusText: 'OK',
-				headers: new Headers({
-					'Content-Type': 'text/html;charset=UTF-8',
-					'Content-Length': translated.length,
-				}),
-			});
+			return this.wrap(translated);
 		}
 		
 		// Return error
@@ -161,5 +165,22 @@
 		// Check response
 		if(response.status && response.status == 'OK') return response;
 		else throw response.error || 'unknown error';
+	}
+	
+	// Wrap up html in response
+	async wrap(html) {
+		return new Response(html, {
+			status: 200,
+			statusText: 'OK',
+			headers: new Headers({
+				'Content-Type': 'text/html;charset=UTF-8',
+				'Content-Length': html.length,
+			}),
+		});
+	}
+	
+	// Perform logout
+	async logout() {
+		for(const table in this.tables) IDB[table].clear();
 	}
 }

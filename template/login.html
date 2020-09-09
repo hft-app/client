@@ -33,8 +33,9 @@
 						[[/error.{{error}}]]
 						
 						[[^error.{{error}}]]
-							<p>Ein unbekannter Fehler ist aufgetreten.</p>
-							<p>{{error}}</p>
+							<p>Ein unbekannter Fehler ist aufgetreten:</p>
+							{{#message}}<p>"{{.}}"</p>{{/message}}
+							{{^message}}<p>{{error}}</p>{{/message}}
 						[[/error.{{error}}]]
 					{{/error}}
 					

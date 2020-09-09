@@ -14,25 +14,31 @@ class AuthHandler {
 			// Login
 			case 'login': {
 				const data = {};
+				try {
+					
+					// Perform request
+					if(request.POST.has('submit')) {
+						const result = await fetch(this.controller.server+'auth.php', {
+							method: 'POST',
+							body: request.POST,
+						}).then(response => response.json());
+						
+						// Server error
+						if(result.error) throw result.error;
+						
+						// Handle login result
+						if(result.login) {
+							await IDB.server.put(result.device, 'device');
+							await IDB.server.put(result.username, 'username');
+							await IDB.server.put(result.displayname, 'displayname');
+							await this.controller.refresh();
+							return Response.redirect('/launch');
+						} else data.failed = true;
+					}
 				
-				// Perform request
-				if(request.POST.has('submit')) {
-					const result = await fetch(this.controller.server+'auth.php', {
-						method: 'POST',
-						body: request.POST,
-					}).then(response => response.json());
-					
-					// Handle login result
-					if(result.login) {
-						await IDB.server.put(result.device, 'device');
-						await IDB.server.put(result.username, 'username');
-						await IDB.server.put(result.displayname, 'displayname');
-						await this.controller.refresh();
-						return Response.redirect('/launch');
-					} else data.failed = true;
-					
-					// Handle error
-					data.error = result.error;
+				// Error handling
+				} catch(error) {
+					data.error = error;
 				}
 				
 				// Render template
@@ -46,9 +52,8 @@ class AuthHandler {
 			
 			// Logout
 			case 'logout': {
-				
-				// Clear tables
-				for(const table in this.controller.tables) IDB[table].clear();
+				await this.controller.query('logout');
+				await this.controller.logout();
 				
 				// Relaunch
 				return Response.redirect('/launch');
