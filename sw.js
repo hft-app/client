@@ -1,7 +1,7 @@
 // Import dependencies
 self.importScripts(
 	'script/idb.min.js',
-	'script/service.min.js',
+	'script/pwa.min.js',
 	'script/elements.min.js',
 	'script/controller.js',
 	'script/table.js',
@@ -21,4 +21,4 @@ self.importScripts(
 
 // Setup controller and service
 const controller = new Controller('3.1.0');
-const service = new Service(controller);
+const service = new PWA(controller);

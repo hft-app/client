@@ -51,7 +51,7 @@ class CoreHandler {
 		
 		// Setup data
 		const data = {
-			version: this.controller.version,
+			version: this.controller.cacheVersion,
 			username: await IDB.server.get('username'),
 			device: await IDB.server.get('device'),
 			page: page,

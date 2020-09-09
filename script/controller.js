@@ -16,7 +16,7 @@
 	}
 	
 	// Cache definition
-	get cache() {
+	get cachedFiles() {
 		return [
 			'/font/awesome.woff2?v=4.7.0',
 			'/font/awesome.woff?v=4.7.0',
@@ -55,13 +55,13 @@
 	
 	// Constructor
 	constructor(version) {
-		this.version = version;
+		this.cacheVersion = version;
 		
 		// Setup server
 		this.server = 'https://server.hft-app.de/';
 		
 		// Setup handlers
-		this.handlers = [
+		this.requestHandlers = [
 			new LaunchHandler(this),
 			new CoreHandler(this),
 			new AuthHandler(this),
