@@ -54,12 +54,11 @@
 		];
 	}
 	
-	// Errors
+	// Errors (internal error pages)
 	get errors() {
 		return {
-			test: {
-				a: 'b',
-			},
+			InvalidDevice: {},
+			InvalidCredentials: {},
 		};
 	}
 	
