@@ -5,7 +5,7 @@ class AuthHandler {
 	}
 	
 	get pattern() {
-		return /\/(login|logout)\/?$/;
+		return /^(login|logout)\/?$/;
 	}
 	
 	async process(request) {
@@ -32,7 +32,7 @@ class AuthHandler {
 							await IDB.server.put(result.username, 'username');
 							await IDB.server.put(result.displayname, 'displayname');
 							await this.controller.refresh();
-							return Response.redirect('/launch');
+							return Response.redirect('/');
 						} else data.failed = true;
 					}
 				
@@ -56,7 +56,7 @@ class AuthHandler {
 				await this.controller.logout();
 				
 				// Relaunch
-				return Response.redirect('/launch');
+				return Response.redirect('/');
 			}
 		}
 	}

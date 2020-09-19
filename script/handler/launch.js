@@ -5,7 +5,7 @@ class LaunchHandler {
 	}
 	
 	get pattern() {
-		return /\/launch\/?$/;
+		return /^\/?$/;
 	}
 	
 	async process() {

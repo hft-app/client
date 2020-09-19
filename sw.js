@@ -20,5 +20,5 @@ self.importScripts(
 );
 
 // Setup controller and service
-const controller = new Controller('3.1.1');
+const controller = new Controller('3.1.2b');
 const service = new PWA(controller);

@@ -25,7 +25,7 @@ class CoreHandler {
 	
 	// URL pattern
 	get pattern() {
-		return new RegExp('^\/(' + Object.keys(this.modules).join('|') + ')(?:\/(.+))?\/?');
+		return new RegExp('^(' + Object.keys(this.modules).join('|') + ')(?:\/(.+))?\/?$');
 	}
 	
 	// Process request

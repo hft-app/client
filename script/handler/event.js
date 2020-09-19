@@ -7,7 +7,7 @@ class EventHandler {
 	
 	// URL pattern
 	get pattern() {
-		return /^\/event\/(\d+)?$/;
+		return /^event\/(\d+)?$/;
 	}
 	
 	// Process request
