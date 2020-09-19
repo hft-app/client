@@ -45,6 +45,10 @@ class AuthHandler {
 				let template = await this.controller.fetch('/template/login.html').then(response => response.text());
 				template = Elements.render(template, data);
 				
+				// Render meta data
+				const meta = await this.controller.fetch('/launcher/meta.html').then(response => response.text());
+				template = template.replace('{{>meta}}', meta);
+				
 				// Render language
 				const lang = await this.controller.fetch('/lang/de.json').then(response => response.json());
 				return new Elements({open: '[[', close: ']]'}).render(template, lang);
