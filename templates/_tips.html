@@ -1,0 +1,43 @@
+{{^list.length}}
+	<div class="wrapper">
+		<div class="screen container">
+			<div class="icon fa-solid fa-circle-question"></div>
+			<div class="title">Nichts gefunden</div>
+			<div class="line"></div>
+			<div class="info">
+				<p>Es wurden keine Daten abgerufen.</p>
+			</div>
+			<a class="button" href="/refresh">Aktualisieren</a>
+		</div>
+	</div>
+{{/list.length}}
+{{#list.length}}
+	<div class="wrapper">
+		<div class="list">
+			<div class="container">
+				{{#list}}
+					<a class="tip article" {{#href}}href="{{.}}"{{/href}} {{#external}}target="_blank"{{/external}}>
+						<div class="{{color}} fa-solid fa-{{icon}} strip"></div>
+						<div class="text">
+							<div class="title">{{title}}</div>
+							<div class="description">
+								<p>{{description}}</p>
+							</div>
+						</div>
+						{{#href}}<div class="arrow fa-solid fa-chevron-right"></div>{{/href}}
+					</a>
+				{{/list}}
+			</div>
+		</div>
+		<div class="note">
+			<div class="container">
+				<p>&copy; HFT App v{{version}}</p>
+				<p>
+					<a href="https://hft-app.de/launcher/kb/imprint">Impressum</a> &middot;
+					<a href="https://hft-app.de/launcher/kb/privacy">Datenschutz</a>
+				</p>
+			</div>
+		</div>
+	</div>
+{{/list.length}}
+	

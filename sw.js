@@ -1,24 +1,19 @@
 // Import dependencies
 self.importScripts(
-	'script/idb.min.js',
-	'script/pwa.min.js',
-	'script/elements.min.js',
-	'script/controller.js',
-	'script/table.js',
-	'script/handler/auth.js',
-	'script/handler/launch.js',
-	'script/handler/core.js',
-	'script/handler/event.js',
-	'script/module/events.js',
-	'script/module/exams.js',
-	'script/module/courses.js',
-	'script/module/meals.js',
-	'script/module/lectures.js',
-	'script/module/menu.js',
-	'script/module/welcome.js',
-	'script/module/list.js',
+	'/hft-app-client/scripts/idb.js',
+	'/hft-app-client/scripts/pwa.min.js',
+	'/hft-app-client/scripts/elements.min.js',
+	'/hft-app-client/scripts/controller.js',
+	'/hft-app-client/scripts/table.js',
+	'/hft-app-client/scripts/handler/home.js',
+	'/hft-app-client/scripts/handler/core.js',
+	'/hft-app-client/scripts/module/frame.js',
+	'/hft-app-client/scripts/module/courses.js',
+	'/hft-app-client/scripts/module/lectures.js',
+	'/hft-app-client/scripts/module/list.js',
+	'/hft-app-client/scripts/module/error.js',
 );
 
 // Setup controller and service
-const controller = new Controller('3.1.2b');
+const controller = new Controller(Launcher.test); // will be cache version
 const service = new PWA(controller);

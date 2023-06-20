@@ -1,0 +1,66 @@
+{{^subjects.length}}
+	<div class="wrapper">
+		<div class="screen container">
+			<div class="icon fa-solid fa-circle-question"></div>
+			<div class="title">Nichts gefunden</div>
+			<div class="line"></div>
+			<div class="info">
+				<p>Es wurden keine Vorlesungen abgerufen.</p>
+			</div>
+			<a class="button" href="/refresh">Aktualisieren</a>
+		</div>
+	</div>
+{{/subjects.length}}
+{{#subjects.length}}
+	<script type="module" src="scripts/client/courses.js"></script>
+
+	<nav>
+		<div class="bar container">
+			<a href="/lectures">Abbrechen</a>
+			<a class="save" data-idle="Speichern" data-active="Speichert..."></a>
+		</div>
+	</nav>
+	
+	<div class="wrapper">
+		<div class="dashboard">
+			<div class="widget">
+				<div class="container">
+					<h5>Kurse auswählen</h5>
+				</div>
+				<form class="subjects" method="POST" action="/courses/?submit">
+					<div class="container">
+						{{#subjects}}
+							<div class="item">
+								<div class="header">
+									<label>
+										<input type="checkbox">
+										<span class="fa-regular checkbox"></span>
+										<span class="name">{{name}}</span>
+										<span class="amount">({{courses.length}})</span>
+									</label>
+									<a class="arrow fa-solid"></a>
+								</div>
+								<div class="courses">
+									{{#courses}}
+										<label>
+											<input type="checkbox" name="{{subject}}/{{id}}" value="on" {{#enrolled}}checked{{/enrolled}}>
+											<span class="fa-regular checkbox"></span>
+											<span>{{title}}</span>
+										</label>
+									{{/courses}}
+								</div>
+							</div>
+						{{/subjects}}
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<div class="note">
+			<div class="container">
+				<p>Vorlesungsverzeichnis</p>
+				<p>© <a href="http://www.hft-stuttgart.de/" target="_blank">Hochschule für Technik Stuttgart</a></p>
+			</div>
+		</div>
+	</div>
+{{/subjects.length}}

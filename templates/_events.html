@@ -1,0 +1,17 @@
+{{^online}}
+	<div class="wrapper">
+		<div class="screen container">
+			<div class="icon fa-solid fa-triangle-exclamation"></div>
+			<div class="title">Keine Verbindung</div>
+			<div class="line"></div>
+			<div class="info">
+				<p>Dieser Inhalt ist nur online verfügbar.</p>
+			</div>
+		</div>
+	</div>
+{{/online}}
+{{#online}}
+	<div class="wrapper">
+		<iframe src="{{url}}" style="height: calc(100% + 75px); margin-top: -75px;"></iframe>
+	</div>
+{{/online}}

@@ -1,0 +1,64 @@
+{
+	"page": {
+		"meals": {
+			"title": "Speiseplan",
+			"tab": "Mensa"
+		},
+		"lectures": {
+			"title": "Vorlesungsplan",
+			"tab": "Vorlesungen"
+		},
+		"events": {
+			"title": "Terminkalender",
+			"tab": "Termine"
+		},
+		"courses": {
+			"title": "Vorlesungsverzeichnis"
+		},
+		"tips": {
+			"title": "Tipps und Links",
+			"tab": "Tipps"
+		},
+		"error": {
+			"title": "Oh nein!"
+		}
+	},
+	
+	"date": {
+		"F": [
+			null,
+			"Januar",
+			"Februar",
+			"März",
+			"April",
+			"Mai",
+			"Juni",
+			"Juli",
+			"August",
+			"September",
+			"Oktober",
+			"November",
+			"Dezember"
+		],
+		
+		"D": [
+			"So",
+			"Mo",
+			"Di",
+			"Mi",
+			"Do",
+			"Fr",
+			"Sa"
+		],
+		
+		"l": [
+			"Sonntag",
+			"Montag",
+			"Dienstag",
+			"Mittwoch",
+			"Donnerstag",
+			"Freitag",
+			"Samstag"
+		]
+	}
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="google" content="notranslate">
+		
+		<base href="/hft-app-client/">
+		
+		<title>HFT App &middot; [[page.{{page}}.title]]</title>
+		
+		<link rel="stylesheet" href="styles/main.css">
+		<link rel="stylesheet" href="fontawesome/css/fontawesome.min.css">
+		<link rel="stylesheet" href="fontawesome/css/solid.min.css">
+		<link rel="stylesheet" href="fontawesome/css/regular.min.css">
+		
+		{{>meta}}
+		
+		<script src="scripts/client/lu.min.js" defer></script>
+		<script src="scripts/client/shell.js" defer></script>
+	</head>
+	<body>
+		<header>
+			<div class="container">
+				<a class="settings fa-solid fa-gear" href="/courses"></a>
+				<div class="title">[[page.{{page}}.title]]</div>
+				<a class="refresh fa-solid fa-arrows-rotate" href="/refresh"></a>
+			</div>
+		</header>
+		
+		{{#module}}
+			{{>content}}
+		{{/module}}
+		
+		<footer>
+			<div class="container">
+				{{#tabs}}
+					<a href="/{{name}}" {{#active}}class="active"{{/active}}>
+						<span class="icon fa-solid fa-{{icon}}"></span>
+						<span class="title">[[page.{{name}}.tab]]</span>
+					</a>
+				{{/tabs}}
+			</div>
+		</footer>
+	</body>
+</html>
