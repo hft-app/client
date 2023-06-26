@@ -1,17 +1,17 @@
 // Import dependencies
 self.importScripts(
-	'/hft-app-client/scripts/idb.js',
-	'/hft-app-client/scripts/pwa.min.js',
-	'/hft-app-client/scripts/elements.min.js',
-	'/hft-app-client/scripts/controller.js',
-	'/hft-app-client/scripts/table.js',
-	'/hft-app-client/scripts/handler/home.js',
-	'/hft-app-client/scripts/handler/core.js',
-	'/hft-app-client/scripts/module/frame.js',
-	'/hft-app-client/scripts/module/courses.js',
-	'/hft-app-client/scripts/module/lectures.js',
-	'/hft-app-client/scripts/module/list.js',
-	'/hft-app-client/scripts/module/error.js',
+	'scripts/idb.js',
+	'scripts/pwa.min.js',
+	'scripts/elements.min.js',
+	'scripts/controller.js',
+	'scripts/table.js',
+	'scripts/handler/home.js',
+	'scripts/handler/core.js',
+	'scripts/module/frame.js',
+	'scripts/module/courses.js',
+	'scripts/module/lectures.js',
+	'scripts/module/list.js',
+	'scripts/module/error.js',
 );
 
 // Setup controller and service

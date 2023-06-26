@@ -10,32 +10,38 @@
 		};
 	}
 	
-	// Cache definition
+	/**
+	 * Cache definition
+	 * Paths start with '/' because:
+	 * - the names of cached ressources will start with '/' anyhow (due to the browser)
+	 * - it avoids confusion that fetching from cache using caches.match therefore only works for paths starting with '/'
+	 * - the app might be installed from a subdirectory like /launcher which would result in different paths otherwise
+	 */
 	get cachedFiles() {
 		return [
-			'/hft-app-client/fontawesome/css/fontawesome.min.css',
-			'/hft-app-client/fontawesome/css/solid.min.css',
-			'/hft-app-client/fontawesome/css/regular.min.css',
-			'/hft-app-client/fontawesome/webfonts/fa-solid-900.ttf',
-			'/hft-app-client/fontawesome/webfonts/fa-solid-900.woff2',
-			'/hft-app-client/fontawesome/webfonts/fa-regular-400.ttf',
-			'/hft-app-client/fontawesome/webfonts/fa-regular-400.woff2',
+			'/fontawesome/css/fontawesome.min.css',
+			'/fontawesome/css/solid.min.css',
+			'/fontawesome/css/regular.min.css',
+			'/fontawesome/webfonts/fa-solid-900.ttf',
+			'/fontawesome/webfonts/fa-solid-900.woff2',
+			'/fontawesome/webfonts/fa-regular-400.ttf',
+			'/fontawesome/webfonts/fa-regular-400.woff2',
 			
-			'/hft-app-client/scripts/client/courses.js',
-			'/hft-app-client/scripts/client/lu.min.js',
-			'/hft-app-client/scripts/client/shell.js',
+			'/scripts/client/courses.js',
+			'/scripts/client/lu.min.js',
+			'/scripts/client/shell.js',
 			
-			'/hft-app-client/styles/main.css',
+			'/styles/main.css',
 			
-			'/hft-app-client/expressions/de.json',
+			'/expressions/de.json',
 			
-			'/hft-app-client/templates/_courses.html',
-			'/hft-app-client/templates/_events.html',
-			'/hft-app-client/templates/_lectures.html',
-			'/hft-app-client/templates/_meals.html',
-			'/hft-app-client/templates/_tips.html',
-			'/hft-app-client/templates/_error.html',
-			'/hft-app-client/templates/shell.html',
+			'/templates/_courses.html',
+			'/templates/_events.html',
+			'/templates/_lectures.html',
+			'/templates/_meals.html',
+			'/templates/_tips.html',
+			'/templates/_error.html',
+			'/templates/shell.html',
 			
 			'/launcher/meta.html',
 		];
@@ -59,7 +65,6 @@
 	constructor(version) {
 		this.cacheVersion = version;
 		this.server = '/hft-app-server/';
-		this.client = '/hft-app-client/';
 		
 		// Setup handlers
 		this.requestHandlers = [
@@ -73,8 +78,8 @@
 	
 	// Render template
 	async renderTemplate(page, data) {
-		const content = await this.fetch(this.client+'templates/_'+page+'.html').then(response => response.text());
-		const shell = await this.fetch(this.client+'templates/shell.html').then(response => response.text());
+		const content = await this.fetch('/templates/_'+page+'.html').then(response => response.text());
+		const shell = await this.fetch('/templates/shell.html').then(response => response.text());
 		const meta = await this.fetch('/launcher/meta.html').then(response => response.text());
 		const cooked = shell.replace('{{>content}}', content).replace('{{>meta}}', meta);
 		
@@ -99,7 +104,7 @@
 		
 		// Return html wrapped in response
 		if(response) {
-			const language = await this.fetch(this.client+'expressions/de.json').then(response => response.json());
+			const language = await this.fetch('/expressions/de.json').then(response => response.json());
 			const translated = new Elements({open: '[[', close: ']]'}).render(response, language);
 			return this.wrap(translated);
 		}
@@ -138,10 +143,9 @@
 	}
 	
 	/* Fetch a resource
-	 * App resouces are requested by their relative path in the repository, e.g. /templates/core.html
-	 * Therefore they cannot be served from network when inside the launcher.
-	 * But they can be served from cache, as the launcher stores them with the appropriate (fake) path.
-	 * It has to be ensured that all app resources are cached and other requests like API calls use absolute paths.
+	 * It has to be ensured that all app resources are cached.
+	 * Only while caching, the Launcher serves them from the app repo, pretending it's the requested (fake) path.
+	 * They cannot be retrieved from a network fetch (with relative path) afterwards.
 	 */
 	async fetch(request) {
 		return await caches.match(request) || await fetch(request);
