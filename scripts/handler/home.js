@@ -14,7 +14,7 @@ class HomeHandler {
 		if(request.params[1] == 'refresh') await controller.refresh();
 				
 		// Redirect to course selection page
-		const page = await this.controller.idb.server.get('page') || 'courses';
+		const page = await this.controller.idb.state.get('page') || 'courses';
 		return Response.redirect('/'+page);
 	}
 }

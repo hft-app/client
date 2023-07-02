@@ -1,4 +1,4 @@
-﻿class Controller {
+class Controller {
 	
 	// IDB table definition
 	get tables() {
@@ -6,7 +6,7 @@
 			lectures: { autoIncrement: true },
 			tips: { autoIncrement: true },
 			subjects: { autoIncrement: true },
-			server: {},
+			state: {},
 		};
 	}
 	
@@ -73,7 +73,10 @@
 		];
 	
 		// Connect to DB
-		this.idb = new IDB(this.tables);
+		this.idb = new IDB(this.tables, {
+			name: 'hft-app',
+			version: launcher.idbVersion || 1,
+		});
 	}
 	
 	// Render template
@@ -118,13 +121,13 @@
 		
 		// Perform request
 		var payload = new FormData();
-		var enrollments = await this.idb.server.get('enrollments') || [];
+		var enrollments = await this.idb.state.get('enrollments') || [];
 		payload.append('enrollments', JSON.stringify(enrollments));
 		const result = await this.query(payload);
 		
 		// Clear all tables but server
 		for(let name in this.tables) {
-			if(name == 'server') continue;
+			if(name == 'state') continue;
 			await this.idb[name].clear();
 			
 			// Refill tables

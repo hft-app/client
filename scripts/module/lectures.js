@@ -10,8 +10,8 @@ class Lectures {
 		this.days = [];
 		
 		// Set and get color seed
-		if(request.GET.has('repaint')) await this.handler.controller.idb.server.put(Math.floor(Math.random() * 101), 'seed');
-		var seed = await this.handler.controller.idb.server.get('seed') || 36;
+		if(request.GET.has('repaint')) await this.handler.controller.idb.state.put(Math.floor(Math.random() * 101), 'seed');
+		var seed = await this.handler.controller.idb.state.get('seed') || 36;
 		
 		// Create timetable for the next 3 weeks
 		for(let i=0; i<21; i++) {
