@@ -40,3 +40,8 @@ $('nav .save').on('click', function(){
 	this.classList.add('active');
 	document.forms[0].submit();
 }, {once: true});
+
+// Clear course selection
+$('nav .reset').on('click', e => {
+	$('.subjects input').map(input => input.checked = false);
+});
