@@ -1,26 +1,30 @@
 {{#error}}
 	<div class="wrapper">
-		<div class="screen container">
-			<div class="icon fa-solid fa-triangle-exclamation"></div>
-			<div class="title">{{title}}</div>
-			<div class="line"></div>
-			<div class="info">
-				<p>{{info}}</p>
+		<div class="screen">
+			<div class="container">
+				<div class="icon fa-solid fa-triangle-exclamation"></div>
+				<div class="title">{{title}}</div>
+				<div class="line"></div>
+				<div class="info">
+					<p>{{info}}</p>
+				</div>
 			</div>
 		</div>
 	</div>
 {{/error}}
 {{^error}}
 	<div class="wrapper">
-		<div class="screen container">
-			<div class="icon fa-solid fa-triangle-exclamation"></div>
-			<div class="title">Unbekannter Fehler</div>
-			<div class="line"></div>
-			<div class="info">
-				<p>Das hätte nicht passieren sollen.</p>
-				{{#exception}}<p>Fehlercode: {{.}}</p>{{/exception}}
+		<div class="screen">
+			<div class="container">
+				<div class="icon fa-solid fa-triangle-exclamation"></div>
+				<div class="title">Unbekannter Fehler</div>
+				<div class="line"></div>
+				<div class="info">
+					<p>Das hätte nicht passieren sollen.</p>
+					{{#exception}}<p>Fehlercode: {{.}}</p>{{/exception}}
+				</div>
+				<a class="button" href="/launcher">App neustarten</a>
 			</div>
-			<a class="button" href="/launcher">App neustarten</a>
 		</div>
 	</div>
 {{/error}}

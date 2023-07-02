@@ -1,39 +1,32 @@
 $primary: #D41A17;
 $border: #DDDFE2;
-$background: #FAFBFC;
 $icon: #D6D6D6;
 $secondary: #949596;
 
 $shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-$sqrt2: 1.4142;
 
 * {
 	box-sizing: border-box;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-html, body {
-	height: 100%;
-	width: 100%;
-	position: fixed;
-}
-
 body {
+	min-height: 100svh; // Never shorter than the viewport with collapsed browser controls
+	max-height: 100lvh; // Never longer than the viewport with expanded browser controls
+	height: 100dvh; // Should dynamically adapt to svh or lvh (but isn't very reliable)
 	margin: 0;
 	font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-	position: relative;
 	display: flex;
 	flex-direction: column;
-	background-color: $primary;
 	font-size: 16px;
 	color: #1D2129;
-	overscroll-behavior: none;	// FIX: Prevents pull-to-refresh on Android devices
-}
-
-input[type=submit] { -webkit-appearance: none; }
-button, input, select, textarea {
-	font: inherit;
-	color: inherit;
+	overscroll-behavior: none; // Prevent pull-to-refresh on Android (this is not widely confirmed but worth the try)
+	overflow: hidden;
+	background-color: #FAFBFC;
+	
+	@media (display-mode: standalone) or (display-mode: fullscreen) {
+		height: 100lvh;
+	}
 }
 
 p {
@@ -48,27 +41,35 @@ a {
 	color: inherit;
 }
 
-.red { background-color: #d41a17; }
+.red { background-color: $primary; }
 
 .container {
 	margin: 0 auto;
 	width: 100%;
-	max-width: 400px;
 	padding: 0 15px;
 }
 
 .wrapper {
 	flex-grow: 1;
 	overflow: auto;
-	-webkit-overflow-scrolling: touch;
-	background-color: $background;
+	-webkit-overflow-scrolling: touch; // Should be default in the meantime
 	display: flex;
-	flex-direction: column;
+	overscroll-behavior: contain; // Do not bubble scrolling to the body if the limits of the wrapper are exceeded (prevents ugly rubberbanding of the body)
+	align-items: flex-start; // Otherwise contained elements are calculated with a maximal height of 100% and possible padding-bottom is discarded
+	
+	// Cause the wrapper to always scroll vertically because otherwise scrolling would completely bubble to the body
+	&.ensure-scroll::before {
+		width: 0;
+		height: calc(100% + 1px);
+		content: '';
+		display: block;
+	}
 }
 
 iframe {
 	border: 0;
 	height: 100%;
+	flex-grow: 1;
 }
 
 header {
@@ -77,9 +78,12 @@ header {
 	z-index: 10;
 	box-shadow: $shadow;
 	font-size: 22px;
+	padding: 13px 0;
+	padding-top: max(13px, env(safe-area-inset-top));
+	flex-shrink: 0;
+	overflow: hidden; // Chrome otherwise scales the viewport if the content exceeds its dimensions
 	
 	.container {
-		height: 60px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -99,9 +103,11 @@ header {
 footer {
 	background: #FFF;
 	border-top: 1px solid $border;
+	padding: 9px 0;
+	padding-bottom: max(9px, env(safe-area-inset-bottom));
+	flex-shrink: 0;
 	
 	.container {
-		height: 64px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -183,12 +189,16 @@ footer {
 	}
 }
 
-.list { padding: 20px 0; }
+.list {
+	padding: 20px 0;
+	margin: 0 auto;
+}
 
 .screen {
 	color: $secondary;
 	text-align: center;
 	margin: auto;
+	padding: 30px 0;
 	
 	.icon {
 		font-size: 64px;
@@ -223,6 +233,7 @@ footer {
 
 .dashboard {
 	padding: 30px 0;
+	flex-grow: 1;
 	
 	.widget + .widget { margin-top: 2em; }
 				
@@ -264,7 +275,7 @@ nav {
 
 .note {
 	text-align: center;
-	padding-bottom: 20px;
+	padding-top: 20px;
 	color: $secondary;
 	font-size: 0.7em;
 	font-weight: 300;
@@ -272,24 +283,27 @@ nav {
 	a { font-weight: 500; }
 }
 
-.timetable { $height: 13px;
+.timetable { $height: 13px; // Perfectly fills the screen on iPhone 12 mini
 	display: flex;
+	margin: 0 auto;
 	
 	.col {
 		white-space: normal;
 		flex-shrink: 0;
 		height: (44*$height) + 50px;
+		display: flex;
+		flex-direction: column;
 		
 		.head {
 			height: 54px;
-			background-color: rgba(#FFF, 0.95);
+			backdrop-filter: blur(10px);
+			background-color: rgba(252,252,252,.85);
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
 			padding: 0 20px;
 			position: sticky;
-			position: -webkit-sticky;
 			top: 0;
 			z-index: 1;
 					
@@ -307,7 +321,6 @@ nav {
 		table {
 			table-layout: fixed;
 			border-collapse: collapse;
-			min-width: 100%; // Strange hack, 100% ^= infinity
 		
 			tr {
 				height: $height;
@@ -440,7 +453,7 @@ nav {
 		
 	.courses {
 		display: none;
-		padding-left: 34px;
+		padding-left: 24px;
 		
 		label {
 			display: flex;
@@ -454,9 +467,8 @@ nav {
 	}
 	
 	input[type="checkbox"] {
-		opacity: 0;
-		position: absolute;
-		pointer-events: none;
+		width: 0;
+		height: 0;
 		
 		& ~ .checkbox::before {
 			content: "\f0c8";
@@ -466,17 +478,13 @@ nav {
 		&:checked ~ .checkbox::before {
 			content: "\f14a";
 			color: $primary;
+			font-weight: 900;
 		}
 		
 		&:indeterminate ~ .checkbox::before {
 			content: "\f146";
-			color: $primary;	
+			color: $primary;
+			font-weight: 900;
 		}
-	}
-}
-
-@media (display-mode: fullscreen) or (display-mode: standalone) {
-	footer {
-		padding-bottom: 20px;
 	}
 }

@@ -55,7 +55,7 @@ class Table {
 									{{title}}
 								</div>
 								<div class="time">
-									{{#start}}{{H}}:{{i}}{{/start}} - {{#end}}{{H}}:{{i}}{{/end}}
+									{{#start}}{{H}}:{{i}}{{/start}} &ndash; {{#end}}{{H}}:{{i}} Uhr{{/end}}
 								</div>
 								<div class="info">
 									{{#lecturer}}

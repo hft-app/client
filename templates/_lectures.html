@@ -1,18 +1,20 @@
 {{^days.length}}
 	<div class="wrapper">
-		<div class="screen container">
-			<div class="icon fa-solid fa-circle-question"></div>
-			<div class="title">Nichts gefunden</div>
-			<div class="line"></div>
-			<div class="info">
-				<p>Keine Vorlesungen in nächster Zeit.</p>
+		<div class="screen">
+			<div class="container">
+				<div class="icon fa-solid fa-circle-question"></div>
+				<div class="title">Nichts gefunden</div>
+				<div class="line"></div>
+				<div class="info">
+					<p>Keine Vorlesungen in nächster Zeit.</p>
+				</div>
+				<a class="button" href="/courses">Zur Kursauswahl</a>
 			</div>
-			<a class="button" href="/courses">Zur Kursauswahl</a>
 		</div>
 	</div>
 {{/days.length}}
 {{#days.length}}
-	<div class="wrapper">
+	<div class="wrapper ensure-scroll">
 		<div class="timetable">
 			{{#days}}
 				<div class="col">
