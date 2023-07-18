@@ -1,4 +1,4 @@
-class Controller {
+﻿class Controller {
 	
 	// IDB table definition
 	get tables() {
@@ -68,14 +68,17 @@ class Controller {
 		
 		// Setup handlers
 		this.requestHandlers = [
-			new HomeHandler(this),
+			new StartHandler(this),
 			new CoreHandler(this),
 		];
+		
+		// Setup PWA
+		this.pwa = new PWA(this);
 	
-		// Connect to DB
+		// Setup IDB
 		this.idb = new IDB(this.tables, {
 			name: 'hft-app',
-			version: launcher.idbVersion || 1,
+			version: 8,
 		});
 	}
 	
@@ -90,12 +93,9 @@ class Controller {
 		return Elements.render(cooked, data);
 	}
 	
-	// Exception handler
+	// Throw unknown errors or redirect to known error page
 	async exceptionHandler(exception) {
-		console.log('internal exception:', exception);
-		
-		const error = this.errors[exception];
-		if(!error) throw exception;
+		if(!this.errors[exception]) throw exception;
 		return Response.redirect('/error/'+exception);
 	}
 	
@@ -150,8 +150,8 @@ class Controller {
 	 * Only while caching, the Launcher serves them from the app repo, pretending it's the requested (fake) path.
 	 * They cannot be retrieved from a network fetch (with relative path) afterwards.
 	 */
-	async fetch(request) {
-		return await caches.match(request) || await fetch(request);
+	async fetch(url) {
+		return this.pwa.fetch(new Request(url));
 	}
 	
 	// Query API
@@ -160,11 +160,15 @@ class Controller {
 		// Check connection
 		if(!navigator.onLine) throw 'offline';
 		
+		// Add version
+		data.append('version', this.cacheVersion);
+		
 		// Perform request
-		const response = await fetch(this.server+'get.php', {
+		let response = await fetch(this.server+'get.php', {
 			method: 'POST',
 			body: data,
-		}).then(response => response.json());
+		});
+		response = await response.json();
 		
 		// Check response
 		if(response.status && response.status == 'OK') return response;

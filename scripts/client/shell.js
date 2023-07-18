@@ -19,3 +19,18 @@ window.addEventListener('touchmove', e => {
 $('header .refresh').on('click', function(){
 	this.classList.add('fa-spin');
 });
+
+// Defer the install prompt and bind it to corresponding links
+window.addEventListener('beforeinstallprompt', e => {
+	document.querySelectorAll('a[href="/launcher/kb/install"]').forEach(a => a.addEventListener('click', click => {
+		click.preventDefault();
+		e.prompt();
+	}, {once: true}))
+});
+
+/**
+ * Set the body height to window.outerHeight when starting from homescreen.
+ * This is very important because 100vh and 100dvh are both too short on Safari but too long on Chrome.
+ * As failsafe, the default is set to be 100svh in CSS.
+ */
+if(window.matchMedia('(display-mode: standalone)').matches) document.body.style.height = window.outerHeight+'px';

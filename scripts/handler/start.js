@@ -1,11 +1,11 @@
-class HomeHandler {
+class StartHandler {
 
 	constructor(controller) {
 		this.controller = controller;
 	}
 	
 	get pattern() {
-		return /^(home|refresh)\/?$/;
+		return /^(start|refresh)\/?$/;
 	}
 	
 	async process(request) {

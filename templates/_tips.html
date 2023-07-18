@@ -18,7 +18,7 @@
 		<div class="list">
 			<div class="container">
 				{{#list}}
-					<a class="tip article" {{#href}}href="{{.}}"{{/href}} {{#external}}target="_blank"{{/external}}>
+					<a class="article display-{{display}}" {{#href}}href="{{.}}"{{/href}} {{#external}}target="_blank"{{/external}}>
 						<div class="{{color}} fa-solid fa-{{icon}} strip"></div>
 						<div class="text">
 							<div class="title">{{title}}</div>
@@ -30,10 +30,10 @@
 					</a>
 				{{/list}}
 				<div class="note">
-					<p>&copy; HFT App v{{version}}</p>
+					<p>Version {{version}}</p>
 					<p>
-						<a href="https://hft-app.de/launcher/kb/imprint">Impressum</a> &middot;
-						<a href="https://hft-app.de/launcher/kb/privacy">Datenschutz</a>
+						<a href="/launcher/kb/imprint">Impressum</a> &middot;
+						<a href="/launcher/kb/privacy">Datenschutz</a>
 					</p>
 				</div>
 			</div>
