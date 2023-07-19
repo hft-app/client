@@ -28,6 +28,21 @@ window.addEventListener('beforeinstallprompt', e => {
 	}, {once: true}))
 });
 
+// Register share handler
+const shareData = {
+	title: "HFT App",
+	url: "https://hft-app.de",
+};
+document.querySelectorAll('a[href="SHARE"]').forEach(a => {
+	a.href = 'whatsapp://send?text=https://hft-app.de';
+	a.addEventListener('click', e => {
+		if(navigator.canShare(shareData)) {
+			navigator.share(shareData);
+			e.preventDefault();
+		}
+	});
+});
+
 /**
  * Set the body height to window.outerHeight when starting from homescreen.
  * This is very important because 100vh and 100dvh are both too short on Safari but too long on Chrome.
