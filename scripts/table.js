@@ -90,7 +90,7 @@ class Table {
 		// Only check lectures starting in the current time segment
 		var y = (lecture.start - morning) / (60 * 15 * 1000);
 		lecture.rowspan = (lecture.end - lecture.start) / (60 * 15 * 1000);
-		if(!Number.isInteger(y) || y < 0 || y > 48) return false; // OPTIONAL: check for malformed input
+		if(lecture.rowspan < 0 || !Number.isInteger(y) || y < 0 || y > 48) return false; // OPTIONAL: check for malformed input
 					
 		// Col traversal (overlap buffer)
 		for(var x=0; x<12; x++) {

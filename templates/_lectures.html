@@ -1,4 +1,4 @@
-{{^days.length}}
+{{^hasLectures}}
 	<div class="wrapper">
 		<div class="screen">
 			<div class="container">
@@ -12,8 +12,8 @@
 			</div>
 		</div>
 	</div>
-{{/days.length}}
-{{#days.length}}
+{{/hasLectures}}
+{{#hasLectures}}
 	<div class="wrapper">
 		<div class="timetable">
 			{{#days}}
@@ -33,4 +33,4 @@
 			{{/days}}
 		</div>
 	</div>
-{{/days.length}}
+{{/hasLectures}}

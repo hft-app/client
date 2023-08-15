@@ -8,6 +8,7 @@ class Lectures {
 	async process(request) {
 		const lectures = await this.handler.controller.idb.lectures.all(lecture => lecture.start >= this.handler.today);
 		this.days = [];
+		this.hasLectures = false;
 		
 		// Set and get color seed
 		if(request.GET.has('repaint')) await this.handler.controller.idb.state.put(Math.floor(Math.random() * 101), 'seed');
@@ -41,7 +42,8 @@ class Lectures {
 			});
 			
 			// Add day to timetable
-			if(today.length > 0) this.days.push({
+			if(today.length > 0) this.hasLectures = true;
+			this.days.push({
 				table: new Table(today).render(),
 				date: start,
 			});
