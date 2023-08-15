@@ -302,6 +302,7 @@ nav {
 		height: (44*$height) + 50px;
 		display: flex;
 		flex-direction: column;
+		min-width: 120px;
 		
 		.head {
 			height: 54px;
