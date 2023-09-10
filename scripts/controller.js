@@ -64,7 +64,7 @@
 	// Constructor
 	constructor(version) {
 		this.cacheVersion = version;
-		this.server = '/hft-app-server/';
+		this.server = '/server/';
 		
 		// Setup handlers
 		this.requestHandlers = [
