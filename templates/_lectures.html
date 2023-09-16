@@ -1,4 +1,4 @@
-{{^hasLectures}}
+<!--
 	<div class="wrapper">
 		<div class="screen">
 			<div class="container">
@@ -12,25 +12,23 @@
 			</div>
 		</div>
 	</div>
-{{/hasLectures}}
-{{#hasLectures}}
-	<div class="wrapper">
-		<div class="timetable">
-			{{#days}}
-				<div class="col">
-					<div class="head" onclick="if(confirm('Farben neu mischen?')) document.location='/lectures/?repaint'">
-						{{#date}}
-							<div class="day">[[date.l.{{w}}]]</div>
-							<div class="date">{{j}}. [[date.F.{{n}}]]</div>
-						{{/date}}
-					</div>
-					<table>
-						<tbody>
-							{{table}}
-						</tbody>
-					</table>
+-->
+<div class="wrapper">
+	<div class="timetable">
+		{{#days}}
+			<div class="col">
+				<div class="head" onclick="if(confirm('Farben neu mischen?')) document.location='/lectures/?repaint'">
+					{{#date}}
+						<div class="day">[[date.l.{{w}}]]</div>
+						<div class="date">{{j}}. [[date.F.{{n}}]]</div>
+					{{/date}}
 				</div>
-			{{/days}}
-		</div>
+				<table>
+					<tbody>
+						{{table}}
+					</tbody>
+				</table>
+			</div>
+		{{/days}}
 	</div>
-{{/hasLectures}}
+</div>
