@@ -13,7 +13,7 @@ class CoreHandler {
 			'events': new Frame('https://www.hft-stuttgart.de/veranstaltungen#c142', 'calendar-days'),
 			'lectures': new Lectures(this),
 			'meals': new Frame('https://sws2.maxmanager.xyz/', 'utensils'),
-			'tips': new List(this, 'tips', 'lightbulb'),
+			'tips': new List(this, 'tips', 'link'),
 			'courses': new Courses(this),
 			'error': new Error(this),
 		};
