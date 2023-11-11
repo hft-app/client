@@ -269,14 +269,27 @@ nav {
 	a {
 		padding: 8px 0;
 		color: $primary;
-				
+		
+		.icon {
+			margin-right: 3px;
+		}
+		
 		&.save {
-			&::after { content: attr(data-idle); }
+			.status-active { display: none; }
 			
 			&.active {
 				color: $secondary;
 				
-				&::after { content: attr(data-active); }
+				.status-idle { display: none; }
+				.status-active { display: inline-block; }
+			}
+		}
+		
+		&.reset {
+			color: $secondary;
+			
+			&.active {
+				color: $primary;
 			}
 		}
 	}

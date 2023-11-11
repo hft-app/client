@@ -35,6 +35,15 @@ $('.subjects .item').map(item => {
 	$('.header a', item).on('click', () => item.classList.toggle('active'));
 });
 
+// Set reset button state depending on total number of checked inputs
+const updateResetButtonVisiblity = function() {
+	let count = 0;
+	$('.subjects input').map(test => test.checked ? count++ : null);
+	document.querySelector('nav a.reset').classList.toggle('active', count > 0);
+};
+updateResetButtonVisiblity();
+$('.subjects input').on('change', updateResetButtonVisiblity);
+
 // Save course selection
 $('nav .save').on('click', function(){
 	this.classList.add('active');
@@ -43,5 +52,9 @@ $('nav .save').on('click', function(){
 
 // Clear course selection
 $('nav .reset').on('click', e => {
-	$('.subjects input').map(input => input.checked = false);
+	$('.subjects input').map(input => {
+		input.checked = false;
+		input.indeterminate = false;
+	});
+	updateResetButtonVisiblity();
 });
