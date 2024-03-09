@@ -27,13 +27,6 @@ class CoreHandler {
 	// Process request
 	async process(request) {
 		
-		// Auto refresh
-		const checked = await this.controller.idb.state.get('checked');
-		if(!checked || new Date() - checked > 15*60*1000) {
-			await this.controller.idb.state.put(new Date(), 'checked');
-			if(navigator.onLine) await controller.refresh();
-		}
-		
 		// Load page and module
 		const page = request.params[1];
 		const module = this.modules[page];
@@ -59,6 +52,13 @@ class CoreHandler {
 		
 		// Remember visitable page
 		if(page != 'error') await this.controller.idb.state.put(page, 'page');	
+		
+		// Auto refresh
+		const checked = await this.controller.idb.state.get('checked');
+		if(!checked || new Date() - checked > 15*60*1000) {
+			await this.controller.idb.state.put(new Date(), 'checked');
+			if(navigator.onLine) controller.refresh();
+		}
 		
 		// Render template
 		return await this.controller.renderTemplate(page, data);
