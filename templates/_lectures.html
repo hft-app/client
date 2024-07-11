@@ -1,34 +1,54 @@
-<!--
-	<div class="wrapper">
-		<div class="screen">
-			<div class="container">
-				<div class="icon fa-solid fa-circle-question"></div>
-				<div class="title">Nichts gefunden</div>
-				<div class="line"></div>
-				<div class="info">
-					<p>Keine Vorlesungen in nächster Zeit.</p>
+{{^hasLectures}}
+	{{^hasEnrollments}}
+		<div class="wrapper">
+			<div class="screen">
+				<div class="container">
+					<div class="icon fa-solid fa-circle-question"></div>
+					<div class="title">Nichts gefunden</div>
+					<div class="line"></div>
+					<div class="info">
+						<p>Noch keine Kurse ausgewählt.</p>
+					</div>
+					<a class="button" href="/courses">Zur Kursauswahl</a>
 				</div>
-				<a class="button" href="/courses">Zur Kursauswahl</a>
 			</div>
 		</div>
-	</div>
--->
-<div class="wrapper">
-	<div class="timetable">
-		{{#days}}
-			<div class="col">
-				<div class="head" onclick="if(confirm('Farben neu mischen?')) document.location='/lectures/?repaint'">
-					{{#date}}
-						<div class="day">[[date.l.{{w}}]]</div>
-						<div class="date">{{j}}. [[date.F.{{n}}]]</div>
-					{{/date}}
+	{{/hasEnrollments}}
+	{{#hasEnrollments}}
+		<div class="wrapper">
+			<div class="screen">
+				<div class="container">
+					{{#summer}}<div class="icon fa-solid fa-umbrella-beach"></div>{{/summer}}
+					{{^summer}}<div class="icon fa-solid fa-person-snowboarding"></div>{{/summer}}
+					<div class="title">Vorlesungsfrei</div>
+					<div class="line"></div>
+					<div class="info">
+						<p>Keine Vorlesungen in nächster Zeit.</p>
+					</div>
+					<a class="button" href="/courses">Zur Kursauswahl</a>
 				</div>
-				<table>
-					<tbody>
-						{{table}}
-					</tbody>
-				</table>
 			</div>
-		{{/days}}
+		</div>
+	{{/hasEnrollments}}
+{{/hasLectures}}
+{{#hasLectures}}
+	<div class="wrapper">
+		<div class="timetable">
+			{{#days}}
+				<div class="col">
+					<div class="head" onclick="if(confirm('Farben neu mischen?')) document.location='/lectures/?repaint'">
+						{{#date}}
+							<div class="day">[[date.l.{{w}}]]</div>
+							<div class="date">{{j}}. [[date.F.{{n}}]]</div>
+						{{/date}}
+					</div>
+					<table>
+						<tbody>
+							{{table}}
+						</tbody>
+					</table>
+				</div>
+			{{/days}}
+		</div>
 	</div>
-</div>
+{{/hasLectures}}

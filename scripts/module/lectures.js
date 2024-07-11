@@ -10,6 +10,13 @@ class Lectures {
 		this.days = [];
 		this.hasLectures = false;
 		
+		// Check enrollments
+		const enrollments = await this.handler.controller.idb.state.get('enrollments') || {};
+		this.hasEnrollments = Object.keys(enrollments).length > 0;
+		
+		// Check semester
+		this.summer = Math.abs(this.handler.today.getMonth() - 7) < 3;
+		
 		// Set and get color seed
 		if(request.GET.has('repaint')) await this.handler.controller.idb.state.put(Math.floor(Math.random() * 101), 'seed');
 		var seed = await this.handler.controller.idb.state.get('seed') || 36;
