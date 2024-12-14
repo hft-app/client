@@ -125,7 +125,7 @@
 		payload.append('enrollments', JSON.stringify(enrollments));
 		const result = await this.query(payload);
 		
-		// Clear all tables but server
+		// Clear all tables but state
 		for(let name in this.tables) {
 			if(name == 'state') continue;
 			await this.idb[name].clear();
@@ -143,6 +143,9 @@
 				await this.idb[name].put(object);
 			}
 		}
+		
+		// Store refresh timestamp
+		await this.idb.state.put(new Date(), 'refreshed');
 	}
 	
 	/* Fetch a resource

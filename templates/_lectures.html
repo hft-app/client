@@ -15,20 +15,37 @@
 		</div>
 	{{/hasEnrollments}}
 	{{#hasEnrollments}}
-		<div class="wrapper">
-			<div class="screen">
-				<div class="container">
-					{{#summer}}<div class="icon fa-solid fa-umbrella-beach"></div>{{/summer}}
-					{{^summer}}<div class="icon fa-solid fa-person-snowboarding"></div>{{/summer}}
-					<div class="title">Vorlesungsfrei</div>
-					<div class="line"></div>
-					<div class="info">
-						<p>Keine Vorlesungen in nächster Zeit.</p>
+		{{#hasRefreshed}}
+			<div class="wrapper">
+				<div class="screen">
+					<div class="container">
+						{{#summer}}<div class="icon fa-solid fa-umbrella-beach"></div>{{/summer}}
+						{{^summer}}<div class="icon fa-solid fa-person-snowboarding"></div>{{/summer}}
+						<div class="title">Vorlesungsfrei</div>
+						<div class="line"></div>
+						<div class="info">
+							<p>Keine Vorlesungen in nächster Zeit.</p>
+						</div>
+						<a class="button" href="/courses">Zur Kursauswahl</a>
 					</div>
-					<a class="button" href="/courses">Zur Kursauswahl</a>
 				</div>
 			</div>
-		</div>
+		{{/hasRefreshed}}
+		{{^hasRefreshed}}
+			<div class="wrapper">
+				<div class="screen">
+					<div class="container">
+						<div class="icon fa-solid fa-refresh"></div>
+						<div class="title">Aktualisierung nötig</div>
+						<div class="line"></div>
+						<div class="info">
+							<p>Der Zwischenspeicher ist veraltet.</p>
+						</div>
+						<a class="button" href="/refresh">Jetzt aktualisieren</a>
+					</div>
+				</div>
+			</div>
+		{{/hasRefreshed}}
 	{{/hasEnrollments}}
 {{/hasLectures}}
 {{#hasLectures}}

@@ -14,6 +14,10 @@ class Lectures {
 		const enrollments = await this.handler.controller.idb.state.get('enrollments') || {};
 		this.hasEnrollments = Object.keys(enrollments).length > 0;
 		
+		// Check last refresh
+		const refreshed = await this.handler.controller.idb.state.get('refreshed');
+		this.hasRefreshed = refreshed && new Date() - refreshed < 14*24*60*60*1000;
+		
 		// Check semester
 		this.summer = Math.abs(this.handler.today.getMonth() - 7) < 3;
 		
@@ -26,7 +30,7 @@ class Lectures {
 			const start = new Date();
 			start.setDate(start.getDate() + i);
 			start.setHours(0,0,0);
-			const end = new Date()
+			const end = new Date();
 			end.setDate(end.getDate() + i);
 			end.setHours(23,59,59);
 			
