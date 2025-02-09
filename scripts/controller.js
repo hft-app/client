@@ -99,6 +99,21 @@
 		return Response.redirect('/error/'+exception);
 	}
 	
+	// Request filter (as hook for auto-refresh)
+	async requestFilter(data) {
+		const checked = await this.idb.state.get('checked');
+		if(!checked || new Date() - checked > 15*60*1000) {
+			await this.idb.state.put(new Date(), 'checked');
+			
+			// Only refresh when online, wait for data on initial refresh
+			if(navigator.onLine) {
+				if(!checked) await this.refresh();
+				else this.refresh();
+			}
+		}
+		return data;
+	}
+	
 	// Response filter
 	async responseFilter(response) {
 		
