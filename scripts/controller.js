@@ -121,8 +121,8 @@
 		
 		// Perform request
 		var payload = new FormData();
-		var enrollments = await this.idb.state.get('enrollments') || [];
-		payload.append('enrollments', JSON.stringify(enrollments));
+		var enrollments = await this.idb.state.get('enrollments');
+		if(enrollments !== undefined) payload.append('enrollments', JSON.stringify(enrollments));
 		const result = await this.query(payload);
 		
 		// Clear all tables but state
@@ -142,6 +142,12 @@
 				// Insert data
 				await this.idb[name].put(object);
 			}
+		}
+		
+		// Restore cached enrollments (for switch from web to app or after reset)
+		if(result.enrollments) {
+			await this.idb.state.put(result.enrollments, 'enrollments');
+			await this.idb.state.put('lectures', 'page');
 		}
 		
 		// Store refresh timestamp
