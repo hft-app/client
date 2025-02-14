@@ -1,0 +1,241 @@
+body {
+	margin: 0 auto;
+	padding: 15px 0 0 0;
+	font-family: "arial regular",arial, helvetica, sans-serif;
+	font-size: 17px;
+}
+
+@media (max-width: 767px) {
+	body {
+		width: 100%;
+		font-size: 13px;
+	}
+	.wowe {
+		width: 9%;
+		margin-left: 1%
+	}
+	.panel_item {
+		width: 17%;
+	}
+	#listbox-locations {
+		width: 100%;
+		
+	}
+}
+@media (min-width: 768px) {
+	body {
+		width: 720px;
+		font-size: 14px;
+	}
+	.wowe {
+		width: 4%;
+		margin-left: 1%
+	}
+	.panel_item {
+		width: 18%;
+	}
+	#listbox-locations {
+		width: 324px;
+	}
+}
+@media (min-width: 992px) {
+	body {
+		width: 940px
+	}
+	#listbox-locations {
+		width: 324px;
+	}
+}
+@media (min-width: 1260px) {
+	body {
+		width: 1200px
+	}
+	#listbox-locations {
+		width: 324px;
+	}
+}
+
+#loader {
+	margin-top: 7px;
+	width: 32px;
+	height:32px;
+}
+
+.ptr {
+	cursor: pointer;
+}
+.padd-top-5 {
+	padding-top: 5px;
+}
+.padd-15 {
+	padding: 15px;
+}
+.size-11 {
+	font-size: 0.65em;
+}
+.size-12 {
+	font-size: 0.7em;
+}
+.size-13 {
+	font-size: 0.75em;
+}
+.size-14 {
+	font-size: 0.82em;
+}
+
+.splReiter {
+	width:100%;
+	height:50px;
+}
+.wowe, .panel_item {
+	float: left;
+	background-color: #e5e5e5;
+	color:#000;
+	text-align: center;
+	cursor: pointer;
+}
+
+.marginRght {
+	margin-right: 1.25%;
+}
+.active {
+	background-color: #d41a17;
+	color: #fff;
+}
+.panelItemInner {
+	padding:0.5em;
+}
+
+.gruppenkopf {
+	background-color: #d41a17;
+	margin-top:10px;
+	height:40px;
+	padding:10px 0 10px 0;
+	color:#fff;
+}
+.gruppenname {
+	font-size: 1em;
+}
+.preise-head {
+	text-align: right;
+	font-size: 1em;
+}
+
+#reiterphone-burger > .icon-bar {
+	background-color: #000
+}
+#navbarTagesreiter > ul > li > a{
+	padding:2px 0 2px 20px;
+	margin:0px
+}
+
+div.splMeal, div.splMeal-light {
+	margin-bottom: 5px;
+	background-color: #eee;
+}
+div.splMeal {
+	padding: 10px;
+	min-height:80px;
+}
+div.splMeal-light {
+	padding: 10px 0;
+	min-height:86px;
+}
+
+.filtered {
+	opacity: 0.2;
+	background-color: #fff;
+}
+
+img.iconLarge {
+	height:36px;
+	margin-left:14px
+}
+img.icon {
+	height:24px;
+	margin:0 0 4px 6px
+}
+
+.largeFoto {
+	position:absolute;
+	z-index: 10;
+}
+.preise-xs {
+	text-align: right;
+}
+
+.pdf-download {
+	background-color:rgb(229,229,229);
+}
+
+.legende {
+	margin-top: 10px;
+	font-size: 0.76em;
+}
+.td1 {
+	width:5%
+}
+.col-1-icon {
+	width:40px
+}
+.td2 {
+	width:95%
+}
+
+.kname-checked {
+	text-decoration: line-through;
+}
+
+.clrGrey {
+	color: #9b9b9b;
+}
+
+.bglightGrey {
+	background-color: rgb(229,229,229);
+}
+
+#listbox-locations {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	/* Add some styling */
+	border:none;
+	padding:5px 10px;
+	background-size: 22px 9px;
+	background-image: url("https://sws2.maxmanager.xyz/assets/icons/down.png");
+	background-repeat: no-repeat;
+	background-color: rgb(229,229,229);
+	background-position: 98%;
+	outline: none;
+	border: none;
+}
+#listbox-locations:focus {
+	border:2px solid #313650;
+}
+.btn-filter {
+	border: 1px #9b9b9b solid;
+	padding: 5px 10px;
+	background-color: transparent;
+}
+.cv {
+	position: relative;
+	top: 50%;
+	transform: 	translateY(-50%);
+}
+
+.nodata {
+	height:80px;
+	line-height: 80px;
+	background-color:rgb(229,229,229);
+	margin-bottom: 10px;
+	vertical-align: middle;
+}
+
+.show-azn {
+	font-size: 0.8em;
+}
+
+.wowe > img {
+	width:9px;
+	height:22px;
+}

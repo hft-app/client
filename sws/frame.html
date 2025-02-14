@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='/sws/bootstrap.min.css' rel='stylesheet' media='screen'>
+	<link href='/sws/project.css' rel='stylesheet' media='screen'>
+
+	<script src="/sws/jquery-3.2.1.min.js"></script>
+	<script src="/sws/js.cookie-3.js"></script>
+	<script src='/sws/project.min.js'></script>
+</head>
+
+<body>
+	<input id='hiddenDomain' type='hidden' value='hft-app.de'>
+	<input id='hiddenLocId' type='hidden' value='2'>
+	<input id='hiddenDate' type='hidden' value='2025-02-14'>
+	<input id='hiddenLang' type='hidden' value='de'>
+	<input id='hidden_date_start' type='hidden' value='2025-02-10'>
+	<input id='startThisWeek' type='hidden' value='2025-02-10'>
+	<input id='startNextWeek' type='hidden' value='2025-02-17'>
+
+	<div class="container-fluid">
+
+		<!-- E I N R I C H T U N G E N -->
+		<div class="row">
+
+			<div class="col-xs-12 col-md-6">
+				<div class="form-group cv hidden">
+					<label for="listbox-locations" style="font-weight: normal">ORT</label>
+					<select id='listbox-locations' tabindex="1">
+						<option value='2' />MENSA STUTTGART-VAIHINGEN
+						<option value='16' />MENSA CENTRAL
+						<option value='4' />MENSA MUSIKHOCHSCHULE
+						<option value='7' />MENSA KUNSTAKADEMIE
+						<option value='1' />MENSA LUDWIGSBURG
+						<option value='6' />MENSA FLANDERNSTRAßE
+						<option value='9' />MENSA ESSLINGEN STADTMITTE
+						<option value='12' />MENSA AM CAMPUS HORB
+						<option value='13' />MENSA GöPPINGEN
+					</select>
+				</div>
+			</div>
+
+			<div id="toggleFilterPanel" class="col-xs-12 col-md-6 text-right" style="height:50px;">
+				<div class="cv">
+					<button class="ptr btn-filter text-right" tabindex="2"><img src="https://sws2.maxmanager.xyz/assets/icons/down.png" width="22"
+							height="9">&nbsp;&nbsp;FILTER ALLERGENE | ZUSATZSTOFFE</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" style="padding: 0; margin: 0">
+			<div class='col-xs-12' style="height:16px;">
+				<img src="https://sws2.maxmanager.xyz/assets/icons/AjaxLoader.gif" id='loader' class="hidden" style="width:16px;height:16px;">
+			</div>
+		</div>
+
+		<div class="kennzfilter size-12 padd-top-5 hide">
+			<div class="well">
+				<div class="row">
+					<div class="col-xs-6 padd-top-5">
+						<strong>Exklusionsfilter:</strong><br>Essen mit ausgewählten Eigenschaften werden blasser
+						dargestellt.
+					</div>
+					<div class="col-xs-6 padd-top-5 text-right">
+						<span id="clearAll" class="ptr" tabindex="3">FILTER
+							ZURÜCKSETZEN</span>
+
+						<div>
+							<input id="savekennzfilterinput" type="checkbox" tabindex="4"> &nbsp;Meine Filterauswahl
+							speichern, auch soweit Allergene betroffen sind.
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+
+				<div class="col-xs-12 col-sm-4">
+					<table class="table table-condensed">
+						<thead>
+							<tr>
+								<td colspan="2" class="clrGrey">ALLERGENE</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-Ei' class='itemkennz' onclick="filterArtikel()"
+										tabindex="6">
+								</td>
+								<td class="td2" id='kname-Ei' class="k-item-name">Ei</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-En' class='itemkennz' onclick="filterArtikel()"
+										tabindex="7">
+								</td>
+								<td class="td2" id='kname-En' class="k-item-name">Erdnuss</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-Fi' class='itemkennz' onclick="filterArtikel()"
+										tabindex="8">
+								</td>
+								<td class="td2" id='kname-Fi' class="k-item-name">Fisch</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-GlD' class='itemkennz' onclick="filterArtikel()"
+										tabindex="9">
+								</td>
+								<td class="td2" id='kname-GlD' class="k-item-name">Dinkel</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-GlG' class='itemkennz' onclick="filterArtikel()"
+										tabindex="10">
+								</td>
+								<td class="td2" id='kname-GlG' class="k-item-name">Gerste</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-GlH' class='itemkennz' onclick="filterArtikel()"
+										tabindex="11">
+								</td>
+								<td class="td2" id='kname-GlH' class="k-item-name">Hafer</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-GlKW' class='itemkennz' onclick="filterArtikel()"
+										tabindex="12">
+								</td>
+								<td class="td2" id='kname-GlKW' class="k-item-name">Khorasan-Weizen</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-GlR' class='itemkennz' onclick="filterArtikel()"
+										tabindex="13">
+								</td>
+								<td class="td2" id='kname-GlR' class="k-item-name">Roggen</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-GlW' class='itemkennz' onclick="filterArtikel()"
+										tabindex="14">
+								</td>
+								<td class="td2" id='kname-GlW' class="k-item-name">Weizen</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-Kr' class='itemkennz' onclick="filterArtikel()"
+										tabindex="15">
+								</td>
+								<td class="td2" id='kname-Kr' class="k-item-name">Krebstiere (Krusten- und Schalentiere)
+								</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-La' class='itemkennz' onclick="filterArtikel()"
+										tabindex="16">
+								</td>
+								<td class="td2" id='kname-La' class="k-item-name">Milch und Laktose</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-Lu' class='itemkennz' onclick="filterArtikel()"
+										tabindex="17">
+								</td>
+								<td class="td2" id='kname-Lu' class="k-item-name">Lupine</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-NuC' class='itemkennz' onclick="filterArtikel()"
+										tabindex="18">
+								</td>
+								<td class="td2" id='kname-NuC' class="k-item-name">Cashewnüsse</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-NuH' class='itemkennz' onclick="filterArtikel()"
+										tabindex="19">
+								</td>
+								<td class="td2" id='kname-NuH' class="k-item-name">Haselnüsse</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-NuM' class='itemkennz' onclick="filterArtikel()"
+										tabindex="20">
+								</td>
+								<td class="td2" id='kname-NuM' class="k-item-name">Mandeln</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-NuMa' class='itemkennz' onclick="filterArtikel()"
+										tabindex="21">
+								</td>
+								<td class="td2" id='kname-NuMa' class="k-item-name">Macadamianüsse</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-NuPa' class='itemkennz' onclick="filterArtikel()"
+										tabindex="22">
+								</td>
+								<td class="td2" id='kname-NuPa' class="k-item-name">Paranüsse</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-NuPe' class='itemkennz' onclick="filterArtikel()"
+										tabindex="23">
+								</td>
+								<td class="td2" id='kname-NuPe' class="k-item-name">Pecannüsse</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-NuPi' class='itemkennz' onclick="filterArtikel()"
+										tabindex="24">
+								</td>
+								<td class="td2" id='kname-NuPi' class="k-item-name">Pistazien</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-NuW' class='itemkennz' onclick="filterArtikel()"
+										tabindex="25">
+								</td>
+								<td class="td2" id='kname-NuW' class="k-item-name">Walnüsse</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-Se' class='itemkennz' onclick="filterArtikel()"
+										tabindex="26">
+								</td>
+								<td class="td2" id='kname-Se' class="k-item-name">Sesam</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-Sf' class='itemkennz' onclick="filterArtikel()"
+										tabindex="27">
+								</td>
+								<td class="td2" id='kname-Sf' class="k-item-name">Senf</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-Sl' class='itemkennz' onclick="filterArtikel()"
+										tabindex="28">
+								</td>
+								<td class="td2" id='kname-Sl' class="k-item-name">Sellerie</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-So' class='itemkennz' onclick="filterArtikel()"
+										tabindex="29">
+								</td>
+								<td class="td2" id='kname-So' class="k-item-name">Soja</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-Sw' class='itemkennz' onclick="filterArtikel()"
+										tabindex="30">
+								</td>
+								<td class="td2" id='kname-Sw' class="k-item-name">Schwefeldioxid ("SO2") und Sulfite (>
+									10mg/kg oder 10mg/l, als SO2)</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-Wt' class='itemkennz' onclick="filterArtikel()"
+										tabindex="31">
+								</td>
+								<td class="td2" id='kname-Wt' class="k-item-name">Weichtiere</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="col-xs-12 col-sm-4">
+					<table class="table table-condensed">
+						<thead>
+							<tr>
+								<td colspan="2" class="clrGrey">FISCH UND FLEISCH</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-MSC' class='itemkennz' onclick='filterArtikel()'
+										tabindex="32">
+								</td>
+								<td id='kname-MSC' class="k-item-name ptr td2">
+									Fisch </td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-S' class='itemkennz' onclick='filterArtikel()'
+										tabindex="33">
+								</td>
+								<td id='kname-S' class="k-item-name ptr td2">
+									Schwein </td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-R' class='itemkennz' onclick='filterArtikel()'
+										tabindex="34">
+								</td>
+								<td id='kname-R' class="k-item-name ptr td2">
+									Rind </td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-G' class='itemkennz' onclick='filterArtikel()'
+										tabindex="35">
+								</td>
+								<td id='kname-G' class="k-item-name ptr td2">
+									Geflügel </td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="col-xs-12 col-sm-4">
+					<table class="table table-condensed">
+						<thead>
+							<tr>
+								<td colspan="2" class="clrGrey">ZUSATZSTOFFE</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-1' class='itemkennz' onclick="filterArtikel()"
+										tabindex="36">
+								</td>
+								<td id='kname-1' class="k-item-name td2">(1) mit Konservierungsstoff</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-2' class='itemkennz' onclick="filterArtikel()"
+										tabindex="37">
+								</td>
+								<td id='kname-2' class="k-item-name td2">(2) mit Farbstoff</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-3' class='itemkennz' onclick="filterArtikel()"
+										tabindex="38">
+								</td>
+								<td id='kname-3' class="k-item-name td2">(3) mit Antioxidationsmittel</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-4' class='itemkennz' onclick="filterArtikel()"
+										tabindex="39">
+								</td>
+								<td id='kname-4' class="k-item-name td2">(4) mit Geschmacksverstärker</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-5' class='itemkennz' onclick="filterArtikel()"
+										tabindex="40">
+								</td>
+								<td id='kname-5' class="k-item-name td2">(5) geschwefelt</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-6' class='itemkennz' onclick="filterArtikel()"
+										tabindex="41">
+								</td>
+								<td id='kname-6' class="k-item-name td2">(6) gewachst</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-7' class='itemkennz' onclick="filterArtikel()"
+										tabindex="42">
+								</td>
+								<td id='kname-7' class="k-item-name td2">(7) mit Phosphat</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-8' class='itemkennz' onclick="filterArtikel()"
+										tabindex="43">
+								</td>
+								<td id='kname-8' class="k-item-name td2">(8) mit Süßungsmittel</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-9' class='itemkennz' onclick="filterArtikel()"
+										tabindex="44">
+								</td>
+								<td id='kname-9' class="k-item-name td2">(9) enthält eine Phenylalaninquelle</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-10' class='itemkennz' onclick="filterArtikel()"
+										tabindex="45">
+								</td>
+								<td id='kname-10' class="k-item-name td2">(10) geschwärzt</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-11' class='itemkennz' onclick="filterArtikel()"
+										tabindex="46">
+								</td>
+								<td id='kname-11' class="k-item-name td2">(11) mit Alkohol</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-12' class='itemkennz' onclick="filterArtikel()"
+										tabindex="47">
+								</td>
+								<td id='kname-12' class="k-item-name td2">(12) mit Nitritpökelsalz</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-13' class='itemkennz' onclick="filterArtikel()"
+										tabindex="48">
+								</td>
+								<td id='kname-13' class="k-item-name td2">(13) mit Nitrat</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-14' class='itemkennz' onclick="filterArtikel()"
+										tabindex="49">
+								</td>
+								<td id='kname-14' class="k-item-name td2">(14) kann Aktivität und Aufmerksamkeit bei
+									Kindern beeinträchtigen</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-30' class='itemkennz' onclick="filterArtikel()"
+										tabindex="50">
+								</td>
+								<td id='kname-30' class="k-item-name td2">(30) aus Fleischstücken zusammengefügt</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-31' class='itemkennz' onclick="filterArtikel()"
+										tabindex="51">
+								</td>
+								<td id='kname-31' class="k-item-name td2">(31) aus Fischstücken zusammengefügt</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-GeR' class='itemkennz' onclick="filterArtikel()"
+										tabindex="52">
+								</td>
+								<td id='kname-GeR' class="k-item-name td2">(GeR) enthält Rindergelatine</td>
+							</tr>
+							<tr>
+								<td class="td1">
+									<input type='checkbox' id='stoff-Ges' class='itemkennz' onclick="filterArtikel()"
+										tabindex="53">
+								</td>
+								<td id='kname-Ges' class="k-item-name td2">(Ges) enthält Schweinegelatine</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- P A N E L  -->
+		<?php
+/**
+ * Created by PhpStorm.
+ * User: Sony
+ * Date: 16.04.2017
+ * Time: 10:41
+ */
+?>
+		<div class="splReiter">
+			<div id='2025-02-10' class='panel_item marginRght'>
+				<div class='panelItemInner' tabindex='54'>MO 10.02.</div>
+			</div>
+			<div id='2025-02-11' class='panel_item marginRght'>
+				<div class='panelItemInner' tabindex='55'>DI 11.02.</div>
+			</div>
+			<div id='2025-02-12' class='panel_item marginRght'>
+				<div class='panelItemInner' tabindex='56'>MI 12.02.</div>
+			</div>
+			<div id='2025-02-13' class='panel_item marginRght'>
+				<div class='panelItemInner' tabindex='57'>DO 13.02.</div>
+			</div>
+			<div id='2025-02-14' class='panel_item'>
+				<div class='panelItemInner' tabindex='58'>FR 14.02.</div>
+			</div>
+			<div id='nw' class='wowe' title='Nächste Woche'><img src='https://sws2.maxmanager.xyz/assets/icons/right.png' tabindex='59'></div>
+			<div id='dw' class='hidden wowe' title='Diese Woche'><img src='https://sws2.maxmanager.xyz/assets/icons/left.png' tabindex='59'></div>
+		</div>
+
+		<!-- M A I N -->
+		<div id='speiseplan'></div>
+
+		<!-- L E G E N D E -->
+		<h4 id="toggleLegende" class="ptr bglightGrey" style="padding: 15px" tabindex="101">+ LEGENDE</h4>
+		<div class="container-fluid legende hidden">
+
+			<div class="row">
+				<div class="col-xs-12 col-sm-4">
+					<table class="table table-condensed">
+						<thead>
+							<tr>
+								<td colspan="3">PIKTOGRAMME</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="col-1-icon td1"><img
+										src="https://sws2.maxmanager.xyz/assets/icons/VR.png?v=1" style="height:20px"
+										alt="Piktogramm
+							Veganer Renner" title="Piktogramm Veganer Renner"></td>
+
+								<td class="td2">Veganer Renner</td>
+							</tr>
+							<tr>
+								<td class="col-1-icon td1"><img
+										src="https://sws2.maxmanager.xyz/assets/icons/VG.png?v=1" style="height:20px"
+										alt="Piktogramm
+							vegan" title="Piktogramm vegan"></td>
+
+								<td class="td2">vegan</td>
+							</tr>
+							<tr>
+								<td class="col-1-icon td1"><img src="https://sws2.maxmanager.xyz/assets/icons/V.png?v=1"
+										style="height:20px" alt="Piktogramm
+							vegetarisch" title="Piktogramm vegetarisch"></td>
+
+								<td class="td2">vegetarisch</td>
+							</tr>
+							<tr>
+								<td class="col-1-icon td1"><img
+										src="https://sws2.maxmanager.xyz/assets/icons/MSC.png?v=1" style="height:20px"
+										alt="Piktogramm
+							MSC-zertifizierter Fisch (MSC-C-51632)" title="Piktogramm MSC-zertifizierter Fisch (MSC-C-51632)"></td>
+
+								<td class="td2">MSC-zertifizierter Fisch (MSC-C-51632)</td>
+							</tr>
+							<tr>
+								<td class="col-1-icon td1"><img
+										src="https://sws2.maxmanager.xyz/assets/icons/RS.png?v=1" style="height:20px"
+										alt="Piktogramm
+							Rind/Schwein" title="Piktogramm Rind/Schwein"></td>
+
+								<td class="td2">Rind/Schwein</td>
+							</tr>
+							<tr>
+								<td class="col-1-icon td1"><img src="https://sws2.maxmanager.xyz/assets/icons/S.png?v=1"
+										style="height:20px" alt="Piktogramm
+							Schwein" title="Piktogramm Schwein"></td>
+
+								<td class="td2">Schwein</td>
+							</tr>
+							<tr>
+								<td class="col-1-icon td1"><img src="https://sws2.maxmanager.xyz/assets/icons/R.png?v=1"
+										style="height:20px" alt="Piktogramm
+							Rind" title="Piktogramm Rind"></td>
+
+								<td class="td2">Rind</td>
+							</tr>
+							<tr>
+								<td class="col-1-icon td1"><img src="https://sws2.maxmanager.xyz/assets/icons/G.png?v=1"
+										style="height:20px" alt="Piktogramm
+							Geflügel" title="Piktogramm Geflügel"></td>
+
+								<td class="td2">Geflügel</td>
+							</tr>
+							<tr>
+								<td class="col-1-icon td1"><img src="https://sws2.maxmanager.xyz/assets/icons/B.png?v=1"
+										style="height:20px" alt="Piktogramm
+							100% Bio nach EG-Öko-Verordnung (DE-ÖKO-006)" title="Piktogramm 100% Bio nach EG-Öko-Verordnung (DE-ÖKO-006)">
+								</td>
+
+								<td class="td2">100% Bio nach EG-Öko-Verordnung (DE-ÖKO-006)</td>
+							</tr>
+							<tr>
+								<td class="col-1-icon td1"><img
+										src="https://sws2.maxmanager.xyz/assets/icons/klimateller.png?v=1"
+										style="height:20px"
+										alt="Piktogramm
+							Ein Gericht wird mit dem KlimaTeller Logo ausgezeichnet, wenn es mindestens 50% weniger CO2e Emissionen verursacht als ein vergleichbares Gericht."
+										title="Piktogramm Ein Gericht wird mit dem KlimaTeller Logo ausgezeichnet, wenn es mindestens 50% weniger CO2e Emissionen verursacht als ein vergleichbares Gericht.">
+								</td>
+
+								<td class="td2">Ein Gericht wird mit dem KlimaTeller Logo ausgezeichnet, wenn es
+									mindestens 50% weniger CO2e Emissionen verursacht als ein vergleichbares Gericht.
+								</td>
+							</tr>
+							<tr>
+								<td class="col-1-icon td1"><img
+										src="https://sws2.maxmanager.xyz/assets/icons/SF.png?v=1" style="height:20px"
+										alt="Piktogramm
+							STUDY&FIT Zertifizierung - Die Verpflegung in unserer Mensa Ludwigsburg hat eine STUDY & FIT Zertifizierung. Basis der Zertifizierung ist der 'DGE-0ualitätsstandard für die Betriebsverpflegung': Die Einhaltung der Kriterien wurde von der Deutschen Gesellschaft für Ernährung e. V. (DGE) überprüft."
+										title="Piktogramm STUDY&FIT Zertifizierung - Die Verpflegung in unserer Mensa Ludwigsburg hat eine STUDY & FIT Zertifizierung. Basis der Zertifizierung ist der 'DGE-0ualitätsstandard für die Betriebsverpflegung': Die Einhaltung der Kriterien wurde von der Deutschen Gesellschaft für Ernährung e. V. (DGE) überprüft.">
+								</td>
+
+								<td class="td2">STUDY&FIT Zertifizierung - Die Verpflegung in unserer Mensa Ludwigsburg
+									hat eine STUDY & FIT Zertifizierung. Basis der Zertifizierung ist der
+									'DGE-0ualitätsstandard für die Betriebsverpflegung': Die Einhaltung der Kriterien
+									wurde von der Deutschen Gesellschaft für Ernährung e. V. (DGE) überprüft.</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="col-xs-12 col-sm-4">
+					<table class="table table-condensed">
+						<thead>
+							<tr>
+								<td colspan="3">ALLERGENE</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="td1">(Ei)</td>
+								<td class="td2">Ei</td>
+							</tr>
+							<tr>
+								<td class="td1">(En)</td>
+								<td class="td2">Erdnuss</td>
+							</tr>
+							<tr>
+								<td class="td1">(Fi)</td>
+								<td class="td2">Fisch</td>
+							</tr>
+							<tr>
+								<td class="td1">(GlD)</td>
+								<td class="td2">Dinkel</td>
+							</tr>
+							<tr>
+								<td class="td1">(GlG)</td>
+								<td class="td2">Gerste</td>
+							</tr>
+							<tr>
+								<td class="td1">(GlH)</td>
+								<td class="td2">Hafer</td>
+							</tr>
+							<tr>
+								<td class="td1">(GlKW)</td>
+								<td class="td2">Khorasan-Weizen</td>
+							</tr>
+							<tr>
+								<td class="td1">(GlR)</td>
+								<td class="td2">Roggen</td>
+							</tr>
+							<tr>
+								<td class="td1">(GlW)</td>
+								<td class="td2">Weizen</td>
+							</tr>
+							<tr>
+								<td class="td1">(Kr)</td>
+								<td class="td2">Krebstiere (Krusten- und Schalentiere)</td>
+							</tr>
+							<tr>
+								<td class="td1">(La)</td>
+								<td class="td2">Milch und Laktose</td>
+							</tr>
+							<tr>
+								<td class="td1">(Lu)</td>
+								<td class="td2">Lupine</td>
+							</tr>
+							<tr>
+								<td class="td1">(NuC)</td>
+								<td class="td2">Cashewnüsse</td>
+							</tr>
+							<tr>
+								<td class="td1">(NuH)</td>
+								<td class="td2">Haselnüsse</td>
+							</tr>
+							<tr>
+								<td class="td1">(NuM)</td>
+								<td class="td2">Mandeln</td>
+							</tr>
+							<tr>
+								<td class="td1">(NuMa)</td>
+								<td class="td2">Macadamianüsse</td>
+							</tr>
+							<tr>
+								<td class="td1">(NuPa)</td>
+								<td class="td2">Paranüsse</td>
+							</tr>
+							<tr>
+								<td class="td1">(NuPe)</td>
+								<td class="td2">Pecannüsse</td>
+							</tr>
+							<tr>
+								<td class="td1">(NuPi)</td>
+								<td class="td2">Pistazien</td>
+							</tr>
+							<tr>
+								<td class="td1">(NuW)</td>
+								<td class="td2">Walnüsse</td>
+							</tr>
+							<tr>
+								<td class="td1">(Se)</td>
+								<td class="td2">Sesam</td>
+							</tr>
+							<tr>
+								<td class="td1">(Sf)</td>
+								<td class="td2">Senf</td>
+							</tr>
+							<tr>
+								<td class="td1">(Sl)</td>
+								<td class="td2">Sellerie</td>
+							</tr>
+							<tr>
+								<td class="td1">(So)</td>
+								<td class="td2">Soja</td>
+							</tr>
+							<tr>
+								<td class="td1">(Sw)</td>
+								<td class="td2">Schwefeldioxid ("SO2") und Sulfite (> 10mg/kg oder 10mg/l, als SO2)</td>
+							</tr>
+							<tr>
+								<td class="td1">(Wt)</td>
+								<td class="td2">Weichtiere</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-xs-12 col-sm-4">
+					<table class="table table-condensed">
+						<thead>
+							<tr>
+								<td colspan="3">ZUSATZSTOFFE</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="td1">(1)</td>
+								<td class="td2">mit Konservierungsstoff</td>
+							</tr>
+							<tr>
+								<td class="td1">(2)</td>
+								<td class="td2">mit Farbstoff</td>
+							</tr>
+							<tr>
+								<td class="td1">(3)</td>
+								<td class="td2">mit Antioxidationsmittel</td>
+							</tr>
+							<tr>
+								<td class="td1">(4)</td>
+								<td class="td2">mit Geschmacksverstärker</td>
+							</tr>
+							<tr>
+								<td class="td1">(5)</td>
+								<td class="td2">geschwefelt</td>
+							</tr>
+							<tr>
+								<td class="td1">(6)</td>
+								<td class="td2">gewachst</td>
+							</tr>
+							<tr>
+								<td class="td1">(7)</td>
+								<td class="td2">mit Phosphat</td>
+							</tr>
+							<tr>
+								<td class="td1">(8)</td>
+								<td class="td2">mit Süßungsmittel</td>
+							</tr>
+							<tr>
+								<td class="td1">(9)</td>
+								<td class="td2">enthält eine Phenylalaninquelle</td>
+							</tr>
+							<tr>
+								<td class="td1">(10)</td>
+								<td class="td2">geschwärzt</td>
+							</tr>
+							<tr>
+								<td class="td1">(11)</td>
+								<td class="td2">mit Alkohol</td>
+							</tr>
+							<tr>
+								<td class="td1">(12)</td>
+								<td class="td2">mit Nitritpökelsalz</td>
+							</tr>
+							<tr>
+								<td class="td1">(13)</td>
+								<td class="td2">mit Nitrat</td>
+							</tr>
+							<tr>
+								<td class="td1">(14)</td>
+								<td class="td2">kann Aktivität und Aufmerksamkeit bei Kindern beeinträchtigen</td>
+							</tr>
+							<tr>
+								<td colspan="2">WEITERE ANGABEN</td>
+
+							</tr>
+							<tr>
+								<td class="td1">(30)</td>
+								<td class="td2">aus Fleischstücken zusammengefügt</td>
+							</tr>
+							<tr>
+								<td class="td1">(31)</td>
+								<td class="td2">aus Fischstücken zusammengefügt</td>
+							</tr>
+							<tr>
+								<td class="td1">(GeR)</td>
+								<td class="td2">enthält Rindergelatine</td>
+							</tr>
+							<tr>
+								<td class="td1">(Ges)</td>
+								<td class="td2">enthält Schweinegelatine</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

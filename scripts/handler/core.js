@@ -12,7 +12,7 @@ class CoreHandler {
 		this.modules = {
 			'events': new Frame('https://www.hft-stuttgart.de/veranstaltungen#c142', 'calendar-days'),
 			'lectures': new Lectures(this),
-			'meals': new Frame('https://sws2.maxmanager.xyz/', 'utensils'),
+			'meals': new Frame('/sws/frame.html', 'utensils'),
 			'tips': new List(this, 'tips', 'link'),
 			'courses': new Courses(this),
 			'error': new Error(this),

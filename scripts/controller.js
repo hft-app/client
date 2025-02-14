@@ -44,6 +44,13 @@
 			'/templates/shell.html',
 			
 			'/launcher/meta.html',
+			
+			'/sws/bootstrap.min.css',
+			'/sws/frame.html',
+			'/sws/jquery-3.2.1.min.js',
+			'/sws/js.cookie-3.js',
+			'/sws/project.css',
+			'/sws/project.min.js',
 		];
 	}
 	
