@@ -6,7 +6,9 @@ class Lectures {
 	
 	// Build timetable
 	async process(request) {
-		const lectures = await this.handler.controller.idb.lectures.all(lecture => lecture.start >= this.handler.today);
+		var today = new Date();
+		today.setHours(0,0,0,0);
+		const lectures = await this.handler.controller.idb.lectures.all(lecture => lecture.start >= today);
 		this.days = [];
 		this.hasLectures = false;
 		
@@ -19,7 +21,7 @@ class Lectures {
 		this.hasRefreshed = refreshed && new Date() - refreshed < 14*24*60*60*1000;
 		
 		// Check semester
-		this.summer = Math.abs(this.handler.today.getMonth() - 7) < 3;
+		this.summer = Math.abs(today.getMonth() - 7) < 3;
 		
 		// Set and get color seed
 		if(request.GET.has('repaint')) await this.handler.controller.idb.state.put(Math.floor(Math.random() * 101), 'seed');
@@ -35,8 +37,8 @@ class Lectures {
 			end.setHours(23,59,59);
 			
 			// Filter lectures for current day
-			let today = lectures.filter(lecture => lecture.start >= start && lecture.end <= end);
-			today.sort(function(a,b){
+			let currentDay = lectures.filter(lecture => lecture.start >= start && lecture.end <= end);
+			currentDay.sort(function(a,b){
 				let fa = a.title.toLowerCase();
 				let fb = b.title.toLowerCase();
 
@@ -46,16 +48,16 @@ class Lectures {
 			});
 			
 			// Calculate color hash
-			today.forEach(async lecture => {
+			currentDay.forEach(async lecture => {
 				var hash = 1;
 				for(var i=0; i<lecture.title.length; i++) hash = (hash * lecture.title.charCodeAt(i) + seed) % 359;
 				lecture.color = 'hsl('+hash+'deg 70% 40%)';
 			});
 			
 			// Add day to timetable
-			if(today.length > 0) this.hasLectures = true;
+			if(currentDay.length > 0) this.hasLectures = true;
 			this.days.push({
-				table: new Table(today).render(),
+				table: new Table(currentDay).render(),
 				date: start,
 			});
 		}
