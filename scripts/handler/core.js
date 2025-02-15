@@ -4,10 +4,6 @@ class CoreHandler {
 	constructor(controller) {
 		this.controller = controller;
 		
-		// Setup time
-		this.today = new Date();
-		this.today.setHours(0,0,0,0);
-		
 		// Setup modules
 		this.modules = {
 			'events': new Frame('https://www.hft-stuttgart.de/veranstaltungen#c142', 'calendar-days'),
