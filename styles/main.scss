@@ -413,6 +413,42 @@ nav {
 			padding-right: 2px;
 		}
 		
+		.reactions {
+			position: absolute;
+			background-color: #FFF;
+			border-radius: 100px;
+			left: 12px;
+			bottom: 24px;
+			box-shadow: 0 9px 38px rgba(0,0,0,0.30), 0 5px 12px rgba(0,0,0,0.22);
+			font-size: 36px;
+			z-index: 2;
+			padding: 7px 7px;
+			display: none;
+			
+			&.active {
+				display: flex;
+			}
+			
+			.reaction {
+				height: 46px;
+				width: 46px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 100px;
+				cursor: pointer;
+				overflow: hidden;
+				
+				&.active {
+					background-color: currentColor;
+				}
+				
+				& + .reaction {
+					margin-left: 5px;
+				}
+			}
+		}
+		
 		.data + .data { padding-left: 1em; }
 		
 		.data:only-child { margin-left: auto; }
