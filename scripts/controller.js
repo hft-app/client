@@ -28,6 +28,7 @@
 			'/fontawesome/webfonts/fa-regular-400.woff2',
 			
 			'/scripts/client/courses.js',
+			'/scripts/client/lectures.js',
 			'/scripts/client/lu.min.js',
 			'/scripts/client/shell.js',
 			

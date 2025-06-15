@@ -50,7 +50,11 @@ class Table {
 				else if(this.grid[x][y]) {
 					table+= Elements.render(`
 						<td class="occupied" colspan="{{colspan}}" rowspan="{{rowspan}}">
-							<div class="lecture" style="background-color: {{color}}">
+							<div class="lecture" style="background-color: {{color}}"
+								{{#lecturer}}data-lecturer="{{.}}"{{/lecturer}}
+								{{#start}}data-start="{{c}}"{{/start}}
+								{{#end}}data-end="{{c}}"{{/end}}
+							>
 								<div class="title">
 									{{title}}
 								</div>
@@ -70,6 +74,17 @@ class Table {
 											<span>{{.}}</span>
 										</div>
 									{{/room}}
+								</div>
+								<div class="reactions" style="color: {{color}}">
+									<div class="reaction" data-type="1">
+										<span>🥱</span>
+									</div>
+									<div class="reaction" data-type="2">
+										<span>😊</span>
+									</div>
+									<div class="reaction" data-type="3">
+										<span>🤯</span>
+									</div>
 								</div>
 							</div>
 						</td>
