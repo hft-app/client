@@ -13,8 +13,8 @@ class StartHandler {
 		// Manual refresh
 		if(request.params[1] == 'refresh') await this.controller.refresh();
 		
-		// Redirect to course selection page
-		const page = await this.controller.idb.state.get('page') || 'courses';
+		// Redirect to last visited page or welcome page
+		const page = await this.controller.idb.state.get('page') || 'welcome';
 		return Response.redirect('/'+page);
 	}
 }
