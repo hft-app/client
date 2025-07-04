@@ -32,7 +32,7 @@ $('.subjects .item').map(item => {
 	});
 	
 	// Open/close sub menu
-	$('.header a', item).on('click', () => item.classList.toggle('active'));
+	$('.header .description', item).on('click', () => item.classList.toggle('active'));
 });
 
 // Set reset button state depending on total number of checked inputs

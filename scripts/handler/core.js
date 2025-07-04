@@ -12,6 +12,7 @@ class CoreHandler {
 			'tips': new List(this, 'tips', 'link'),
 			'courses': new Courses(this),
 			'error': new Error(this),
+			'welcome': new Welcome(this),
 		};
 	}
 	

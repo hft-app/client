@@ -21,6 +21,9 @@
 		},
 		"error": {
 			"title": "Oh nein!"
+		},
+		"welcome": {
+			"title": "Willkommen"
 		}
 	},
 	

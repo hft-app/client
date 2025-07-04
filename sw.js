@@ -12,6 +12,7 @@ self.importScripts(
 	'/scripts/module/lectures.js',
 	'/scripts/module/list.js',
 	'/scripts/module/error.js',
+	'/scripts/module/welcome.js',
 );
 
 // Setup controller

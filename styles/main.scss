@@ -462,7 +462,7 @@ nav {
 	background-color: #FFF;
 	
 	.item {
-		padding: 8px 6px;
+		padding: 10px 0;
 		
 		&.active {
 			.courses { display: block; }
@@ -478,22 +478,28 @@ nav {
 	.header {
 		display: flex;
 		
-		label {
-			padding: 8px 0;
+		.checkbox {
+			padding: 6px;
+			cursor: pointer;
+		}
+		
+		.description {
+			line-height: 1;
 			display: flex;
 			align-items: center;
+			flex-grow: 1;
+			cursor: pointer;
 		}
 		
-		.checkbox {
-			padding-right: 8px;
+		.name {
+			font-weight: 500;
+			padding-left: 4px;
 		}
-		
-		.name { font-weight: 500; }
 		
 		.amount {
 			font-weight: 300;
 			color: $secondary;
-			padding-left: 6px;
+			padding-left: 4px;
 		}
 		
 		.arrow {
@@ -503,6 +509,7 @@ nav {
 			justify-content: flex-end;
 			color: $icon;
 			font-size: 22px;
+			padding: 2px 6px 0;
 			
 			&::before {
 				content: "\f107";
@@ -512,7 +519,7 @@ nav {
 		
 	.courses {
 		display: none;
-		padding-left: 24px;
+		padding-left: 30px;
 		
 		label {
 			display: flex;
