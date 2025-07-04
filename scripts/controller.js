@@ -42,6 +42,7 @@
 			'/templates/_meals.html',
 			'/templates/_tips.html',
 			'/templates/_error.html',
+			'/templates/_welcome.html',
 			'/templates/shell.html',
 			
 			'/launcher/meta.html',
