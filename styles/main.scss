@@ -136,6 +136,43 @@ footer {
 	}
 }
 
+.event {
+	background-color: #FFF;
+	border-radius: 3px;
+	border: 1px solid $border;
+	padding: 12px 16px;
+	display: flex;
+	flex-direction: column;
+	
+	& + .event { margin-top: 12px; }
+	
+	.range {
+		color: $primary;
+		text-transform: uppercase;
+		font-weight: 500;
+		font-size: 13px;
+	}
+	
+	.title {
+		font-size: 17px;
+		//font-weight: 500;
+		margin-top: 8px;
+	}
+	
+	.link {
+		align-self: flex-end;
+		color: $primary;
+		font-weight: 500;
+		margin-top: 8px;
+		font-size: 13px;
+		
+		.icon {
+			margin-left: 2px;
+			font-size: 10px;
+		}
+	}
+}
+
 .article {
 	background-color: #FFF;
 	border-radius: 4px;

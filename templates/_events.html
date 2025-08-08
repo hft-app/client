@@ -1,17 +1,34 @@
-{{^online}}
+{{^events.length}}
 	<div class="wrapper">
 		<div class="screen">
 			<div class="container">
-				<div class="icon fa-solid fa-triangle-exclamation"></div>
-				<div class="title">Keine Verbindung</div>
+				<div class="icon fa-solid fa-circle-question"></div>
+				<div class="title">Nichts gefunden</div>
 				<div class="line"></div>
 				<div class="info">
-					<p>Dieser Inhalt ist nur online verfügbar.</p>
+					<p>Es wurden keine Termine abgerufen.</p>
 				</div>
+				<a class="button" href="/refresh">Aktualisieren</a>
 			</div>
 		</div>
 	</div>
-{{/online}}
-{{#online}}
-	<iframe src="{{url}}" style="height: calc(100% + 75px); margin-top: -75px;"></iframe>
-{{/online}}
+{{/events.length}}
+
+{{#events.length}}
+	<div class="wrapper">
+		<div class="list">
+			<div class="container">
+				{{#events}}
+					<div class="event">
+						<div class="range">{{range}}</div>
+						<div class="title">{{title}}</div>
+						{{#link}}<a class="link" href="{{.}}" target="_blank">
+							<span>mehr anzeigen</span>
+							<span class="icon fa-solid fa-arrow-up-right-from-square"></span>
+						</a>{{/link}}
+					</div>
+				{{/events}}
+			</div>
+		</div>
+	</div>
+{{/events.length}}

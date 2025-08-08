@@ -2,7 +2,7 @@
 self.importScripts(
 	'/scripts/idb.js',
 	'/scripts/pwa.js',
-	'/scripts/elements.min.js',
+	'/scripts/elements.js',
 	'/scripts/controller.js',
 	'/scripts/table.js',
 	'/scripts/handler/start.js',
@@ -13,6 +13,7 @@ self.importScripts(
 	'/scripts/module/list.js',
 	'/scripts/module/error.js',
 	'/scripts/module/welcome.js',
+	'/scripts/module/events.js',
 );
 
 // Setup controller
