@@ -1,7 +1,7 @@
 /*!
- * pwa.js ServiceWorker wrapper v1.8
+ * pwa.js ServiceWorker wrapper v1.9
  * Licensed under the MIT license
- * Copyright (c) 2024 Lukas Jans
+ * Copyright (c) 2025 Lukas Jans
  * https://github.com/ljans/pwa
  */
 class PWA {
@@ -67,12 +67,11 @@ class PWA {
 				if(cached) return cached;
 				
 				// Try to restore cache integrity
-				/*if(navigator.onLine) {
-					const response = await fetch(request);
-					const cache = await caches.open(this.config.version);
-					cache.put(request, response.clone());
-					return response;
-				}*/
+				if(navigator.onLine) {
+					const cache = await caches.open(this.config.cacheVersion);
+					await cache.add(data.url.pathname);
+					return await caches.match(request);
+				}
 				
 				// Fail the request otherwise
 				throw 'cache loss';
