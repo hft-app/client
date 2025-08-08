@@ -6,6 +6,7 @@
 			lectures: { autoIncrement: true },
 			tips: { autoIncrement: true },
 			subjects: { autoIncrement: true },
+			events: { autoIncrement: true },
 			state: {},
 		};
 	}
@@ -87,7 +88,7 @@
 		// Setup IDB
 		this.idb = new IDB(this.tables, {
 			name: 'hft-app',
-			version: 8,
+			version: 9,
 		});
 	}
 	
@@ -160,7 +161,9 @@
 				// Cast date objects
 				for(let index in object) if((
 					(name == 'lectures' && index == 'start') ||
-					(name == 'lectures' && index == 'end')
+					(name == 'lectures' && index == 'end') ||
+					(name == 'events' && index == 'start') ||
+					(name == 'events' && index == 'end')
 				) && object[index]) object[index] = new Date(object[index]);
 				
 				// Insert data

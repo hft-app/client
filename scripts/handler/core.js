@@ -6,7 +6,7 @@ class CoreHandler {
 		
 		// Setup modules
 		this.modules = {
-			'events': new Frame('https://www.hft-stuttgart.de/veranstaltungen#c142', 'calendar-days'),
+			'events': new Events(this),
 			'lectures': new Lectures(this),
 			'meals': new Frame('/sws/frame.html', 'utensils'),
 			'tips': new List(this, 'tips', 'link'),
