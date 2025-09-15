@@ -352,7 +352,11 @@ nav {
 		height: (44*$height) + 50px;
 		display: flex;
 		flex-direction: column;
-		min-width: 120px;
+		min-width: 140px;
+		
+		& + .col {
+			margin-left: 13px;
+		}
 		
 		.head {
 			height: 54px;
