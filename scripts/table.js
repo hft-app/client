@@ -3,132 +3,174 @@ class Table {
 	// Construct with lectures
 	constructor(lectures=[]) {
 		
-		// Load lectures
-		this.lectures = lectures;
+		// Sort lectures by start ASC, end DESC
+		this.lectures = lectures.sort((a,b) => {
+			const startDiff = a.start - b.start;
+			if(startDiff !== 0) return startDiff;
+			return b.end - a.end;
+		});
 		
 		// Setup grid
-		this.grid = [];
-		for(var x=0; x<12; x++) this.grid[x] = [];
+		this.grid = [this.newColumn()];
 		
 		// Place lectures
 		for(const lecture of this.lectures) this.place(lecture);
+		
+		// Stretch lectures
+		this.stretch();
 	}
 	
-	// Occupy grid space
-	occupy(x, y, colspan, rowspan) {
-		for(let dx=0; dx<colspan; dx++) {
-			for(let dy=0; dy<rowspan; dy++) {
-				this.grid[x+dx][y+dy] = false;
+	// Setup a new blank column
+	newColumn() {
+		const column = [];
+		for(var i=0; i<44; i++) column[i] = null;
+		return column;
+	}
+	
+	// Calculate the nearest 15-minute-slot for the start and end of a lecture
+	getStartAndEndRow(lecture) {
+		const morning = new Date(lecture.start);
+		morning.setHours(8,0,0);
+		return [
+			Math.round((lecture.start - morning) / (60 * 15 * 1000)),
+			Math.round((lecture.end - morning) / (60 * 15 * 1000)),
+		];
+	}
+	
+	// Place lecture
+	place(lecture) {
+		const [start, end] = this.getStartAndEndRow(lecture);
+		
+		// Place the element in the leftmost possible col
+		let placeIn = null;
+		for(let colIndex=0; colIndex<this.grid.length; colIndex++) {
+			const col = this.grid[colIndex];
+			let free = true;
+			
+			// Check if enough rows in the current col are free
+			for(let rowIndex=start; rowIndex<end; rowIndex++) {
+				if(col[rowIndex]) free = false;
+			}
+			if(free) {
+				placeIn = colIndex;
+				break;
 			}
 		}
+		
+		// Start a new col if neccessary
+		if(placeIn == null) {
+			placeIn = this.grid.length;
+			this.grid.push(this.newColumn());
+		}
+		
+		// Occupy the cells
+		for(let rowIndex=start; rowIndex<end; rowIndex++) this.grid[placeIn][rowIndex] = lecture;
 	}
 	
-	// Overlapping condition
-	overlap(a, b) {
-		return Math.max(a.start, b.start) < Math.min(a.end, b.end);
+	// Stretch lectures to fill up empty space
+	stretch() {
+		for(let y=0; y<44; y++) {
+			for(let x=0; x<this.grid.length; x++) {
+				const cell = this.grid[x][y];
+				
+				// Ignore empty space and already stretched lectures
+				if(!cell || cell.stretched) continue;
+				
+				// Let each col reduce the remaining possible colspan to its needs
+				let colspan = this.grid.length - x;
+				for(let dy=0; this.grid[x][y+dy] && this.grid[x][y+dy] == cell; dy++) {
+					for(let dx=1; dx<colspan; dx++) {
+						if(this.grid[x+dx][y+dy]) {
+							colspan = dx;
+							break;
+						}
+					}
+				}
+				
+				// Stretch the lecture into the empty space
+				cell.stretched = true;
+				for(let dy=0; this.grid[x][y+dy] && this.grid[x][y+dy] == cell; dy++) {
+					for(let dx=1; dx<colspan; dx++) {
+						this.grid[x+dx][y+dy] = cell;
+					}
+				}
+			}
+		}
 	}
 	
 	// Render timetable
 	render() {
 		let table = '';
 		
-		// Traverse rows (time)
+		// Traverse rows
 		for(let y=0; y<44; y++) {
 			const type = (y <= 20 && y % 7 < 6) || (y >= 24 && (y-24) % 7 < 6) ? 'block' : '';
-			table+= `<tr class="${type}">`;
+			table+= '<tr class="'+type+'">';
 		
-			// Traverse cols (overlap buffer)
-			for(var x=0; x<12; x++) {
+			// Traverse cols
+			for(let x=0; x<this.grid.length; x++) {
+				const cell = this.grid[x][y];
 				
-				// Measure and fill gap
-				var dx=0;
-				while(x+dx < 12 && typeof this.grid[x+dx][y] == 'undefined') dx++;
-				x+= dx;
-				if(dx > 0) table+= `<td colspan="${dx}"></td>`;
+				// Place an empty cell
+				if(!cell) {
+					table+= '<td></td>';
+					continue;
+				}
 				
-				// Render lecture
-				else if(this.grid[x][y]) {
-					table+= Elements.render(`
-						<td class="occupied" colspan="{{colspan}}" rowspan="{{rowspan}}">
-							<div class="lecture" style="background-color: {{color}}"
-								{{#lecturer}}data-lecturer="{{.}}"{{/lecturer}}
-								{{#start}}data-start="{{c}}"{{/start}}
-								{{#end}}data-end="{{c}}"{{/end}}
-							>
-								<div class="title">
-									{{title}}
-								</div>
-								<div class="time">
-									{{#start}}{{H}}:{{i}}{{/start}} &ndash; {{#end}}{{H}}:{{i}} Uhr{{/end}}
-								</div>
-								<div class="info">
-									{{#lecturer}}
-										<div class="lecturer data">
-											<span class="icon fa-solid fa-user"></span>
-											<span>{{.}}</span>
-										</div>
-									{{/lecturer}}
-									{{#room}}
-										<div class="room data">
-											<span class="icon fa-solid fa-location-dot"></span>
-											<span>{{.}}</span>
-										</div>
-									{{/room}}
-								</div>
-								<div class="reactions" style="color: {{color}}">
-									<div class="reaction" data-type="1">
-										<span>🥱</span>
+				// Skip an already placed lecture
+				if(cell.placed) continue;
+				
+				// Measure lecture size
+				cell.colspan = 1;
+				cell.rowspan = 1;
+				while(this.grid[x+cell.colspan] && this.grid[x+cell.colspan][y] == cell) cell.colspan++;
+				while(this.grid[x][y+cell.rowspan] == cell) cell.rowspan++;
+				
+				// Place a lecture
+				cell.placed = true;
+				table+= Elements.render(`
+					<td class="occupied" colspan="{{colspan}}" rowspan="{{rowspan}}">
+						<div class="lecture" style="background-color: {{color}}"
+							{{#lecturer}}data-lecturer="{{.}}"{{/lecturer}}
+							{{#start}}data-start="{{c}}"{{/start}}
+							{{#end}}data-end="{{c}}"{{/end}}
+						>
+							<div class="title">
+								{{title}}
+							</div>
+							<div class="time">
+								{{#start}}{{H}}:{{i}}{{/start}} &ndash; {{#end}}{{H}}:{{i}} Uhr{{/end}}
+							</div>
+							<div class="info">
+								{{#lecturer}}
+									<div class="lecturer data">
+										<span class="icon fa-solid fa-user"></span>
+										<span>{{.}}</span>
 									</div>
-									<div class="reaction" data-type="2">
-										<span>😊</span>
+								{{/lecturer}}
+								{{#room}}
+									<div class="room data">
+										<span class="icon fa-solid fa-location-dot"></span>
+										<span>{{.}}</span>
 									</div>
-									<div class="reaction" data-type="3">
-										<span>🤯</span>
-									</div>
+								{{/room}}
+							</div>
+							<div class="reactions" style="color: {{color}}">
+								<div class="reaction" data-type="1">
+									<span>🥱</span>
+								</div>
+								<div class="reaction" data-type="2">
+									<span>😊</span>
+								</div>
+								<div class="reaction" data-type="3">
+									<span>🤯</span>
 								</div>
 							</div>
-						</td>
-					`, this.grid[x][y]);
-				}
-			} table+= `</tr>`;
+						</div>
+					</td>
+				`, cell);
+			}
+			table+= `</tr>`;
 		} return table;
-	}
-	
-	// Place lecture
-	place(lecture) {
-	
-		// Get lecture date
-		var date = lecture.start;
-		var morning = new Date(date);
-		morning.setHours(8,0,0);
-		
-		// Only check lectures starting in the current time segment
-		var y = (lecture.start - morning) / (60 * 15 * 1000);
-		lecture.rowspan = (lecture.end - lecture.start) / (60 * 15 * 1000);
-		if(lecture.rowspan < 0 || !Number.isInteger(y) || y < 0 || y > 48) return false; // OPTIONAL: check for malformed input
-					
-		// Col traversal (overlap buffer)
-		for(var x=0; x<12; x++) {
-			
-			// Position is occupied
-			if(typeof this.grid[x][y] !== 'undefined') continue;
-			
-			// Find overlapping lectures
-			var overlapping = 0;
-			for(var index in this.lectures) {
-				var test = this.lectures[index];
-				
-				// Devide the remaining space among not yet placed lectures
-				if(!test.placed && this.overlap(test, lecture)) overlapping++;
-			} lecture.colspan = (12 - x)/overlapping;
-			
-			// Occupy grid space
-			this.occupy(x, y, lecture.colspan, lecture.rowspan);
-			
-			// Place lecture
-			this.grid[x][y] = lecture;
-			lecture.placed = true;
-			return true;
-		}
 	}
 }

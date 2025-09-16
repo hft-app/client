@@ -115,10 +115,10 @@
 		if(!checked || new Date() - checked > 15*60*1000) {
 			await this.idb.state.put(new Date(), 'checked');
 			
-			// Only refresh when online, wait for data on initial refresh
+			// Only refresh when online, wait for data on initial refresh (and subsequent refreshes to prevent duplicate entries)
 			if(navigator.onLine) {
 				if(!checked) await this.refresh();
-				else this.refresh();
+				else await this.refresh();
 			}
 		}
 		return data;
