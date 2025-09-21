@@ -14,7 +14,7 @@ class Courses {
 				enrollments[subject].push(course);
 			}
 			await this.handler.controller.idb.state.put(enrollments, 'enrollments');
-			await this.handler.controller.refresh();
+			await this.handler.controller.refresh(true);
 			return Response.redirect('/lectures');
 		}
 		

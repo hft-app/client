@@ -36,7 +36,7 @@ $('.lecture').map(lecture => {
 			// Do not bubble to the lecture onclick
 			e.stopPropagation();
 			
-			// Check connection
+			// Soft check for connection (Safari launches with the value from closing last time)
 			if(!navigator.onLine) return document.location = '/error/offline';
 			
 			// Prepare request
@@ -51,9 +51,9 @@ $('.lecture').map(lecture => {
 					body: data,
 				});
 				var result = await response.json();
-				if(result.status != 'OK') throw 'status not OK';
+				if(!result.status || result.status != 'OK') throw result.error || 'status not OK';
 			} catch(e) {
-				return document.location = '/launcher/error/?from=react&code='+e;
+				return alert('Reaktion fehlgeschlagen ('+e+')');
 			}
 			
 			// Show selection

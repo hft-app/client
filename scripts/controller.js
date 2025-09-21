@@ -115,11 +115,8 @@
 		if(!checked || new Date() - checked > 15*60*1000) {
 			await this.idb.state.put(new Date(), 'checked');
 			
-			// Only refresh when online, wait for data on initial refresh (and subsequent refreshes to prevent duplicate entries)
-			if(navigator.onLine) {
-				if(!checked) await this.refresh();
-				else await this.refresh();
-			}
+			// Synchronous refresh (to prevent duplicate entries) that is enforced at the very first time
+			await this.refresh(!checked);
 		}
 		return data;
 	}
@@ -142,13 +139,32 @@
 	}
 	
 	// Refresh data
-	async refresh() {
+	async refresh(force) {
 		
-		// Perform request
+		// Soft check for connection (Safari launches with the value from closing last time)
+		if(!navigator.onLine) {
+			if(force) throw 'offline';
+			return;
+		}
+		
+		// Prepare request
 		var payload = new FormData();
+		payload.append('version', this.cacheVersion);
 		var enrollments = await this.idb.state.get('enrollments');
 		if(enrollments !== undefined) payload.append('enrollments', JSON.stringify(enrollments));
-		const result = await this.query(payload);
+		
+		// Perform request
+		try {
+			const response = await fetch(this.server+'get.php', {
+				method: 'POST',
+				body: payload,
+			});
+			var result = await response.json();
+			if(!result.status || result.status != 'OK') throw result.error || 'invalidResponse';
+		} catch(e) {
+			if(force) throw e;
+			return;
+		}
 		
 		// Clear all tables but state
 		for(let name in this.tables) {
@@ -188,27 +204,6 @@
 	 */
 	async fetch(url) {
 		return this.pwa.fetch(new Request(url));
-	}
-	
-	// Query API
-	async query(data) {
-		
-		// Check connection
-		if(!navigator.onLine) throw 'offline';
-		
-		// Add version
-		data.append('version', this.cacheVersion);
-		
-		// Perform request
-		let response = await fetch(this.server+'get.php', {
-			method: 'POST',
-			body: data,
-		});
-		response = await response.json();
-		
-		// Check response
-		if(response.status && response.status == 'OK') return response;
-		else throw response.error || 'invalidResponse';
 	}
 	
 	// Wrap up html in response

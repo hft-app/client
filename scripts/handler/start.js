@@ -11,7 +11,7 @@ class StartHandler {
 	async process(request) {
 		
 		// Manual refresh
-		if(request.params[1] == 'refresh') await this.controller.refresh();
+		if(request.params[1] == 'refresh') await this.controller.refresh(true);
 		
 		// Redirect to last visited page or welcome page
 		const page = await this.controller.idb.state.get('page') || 'welcome';
