@@ -58,6 +58,11 @@
 									</div>
 								</div>
 								<div class="courses">
+									{{^courses}}
+										<div class="no-courses">
+											Aktuell keine Lehrveranstaltungen.
+										</div>
+									{{/courses}}
 									{{#courses}}
 										<label>
 											<input type="checkbox" name="{{subject}}/{{id}}" value="on" {{#enrolled}}checked{{/enrolled}}>
