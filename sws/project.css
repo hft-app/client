@@ -121,6 +121,14 @@ body {
 	font-size: 1em;
 }
 
+.untergruppenkopf {
+	background-color: #df6361;
+	height:26px;
+	padding:4px 0 0 15px;
+	color:#fff;
+	font-size: 1em;
+}
+
 #reiterphone-burger > .icon-bar {
 	background-color: #000
 }
