@@ -27,8 +27,8 @@ class Lectures {
 		if(request.GET.has('repaint')) await this.handler.controller.idb.state.put(Math.floor(Math.random() * 101), 'seed');
 		var seed = await this.handler.controller.idb.state.get('seed') || 36;
 		
-		// Create timetable for the next 14 days (because the server sends data for 3 whole weeks)
-		for(let i=0; i<14; i++) {
+		// Create timetable for the next 4 weeks
+		for(let i=0; i<4*7; i++) {
 			const start = new Date();
 			start.setDate(start.getDate() + i);
 			start.setHours(0,0,0);
