@@ -13,7 +13,7 @@
 			"tab": "Termine"
 		},
 		"courses": {
-			"title": "Vorlesungsverzeichnis"
+			"title": "Einstellungen"
 		},
 		"tips": {
 			"title": "Links und Tipps",
@@ -25,6 +25,17 @@
 		"welcome": {
 			"title": "Willkommen"
 		}
+	},
+	
+	"timetableIntervalOption": {
+		"TODAY": "heute",
+		"START_OF_WEEK": "Anfang der Woche",
+		"START_OF_MONTH": "Anfang des Monats",
+		"START_OF_SEMESTER": "Anfang des Semesters",
+		"IN_4_WEEKS": "in vier Wochen",
+		"END_OF_WEEK": "Ende der Woche",
+		"END_OF_MONTH": "Ende des Monats",
+		"END_OF_SEMESTER": "Ende des Semesters"
 	},
 	
 	"date": {

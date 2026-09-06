@@ -276,11 +276,11 @@ footer {
 }
 
 .dashboard {
-	padding: 10px 0 30px;
+	padding: 24px 0 30px;
 	flex-grow: 1;
 	
 	.widget {
-		margin-bottom: 12px;
+		margin-bottom: 24px;
 	}
 				
 	h5 {
@@ -334,7 +334,6 @@ nav {
 
 .note {
 	text-align: center;
-	padding-top: 8px;
 	color: $secondary;
 	font-size: 0.7em;
 	font-weight: 300;
@@ -493,6 +492,39 @@ nav {
 		.data + .data { padding-left: 1em; }
 		
 		.data:only-child { margin-left: auto; }
+	}
+}
+
+.timetableInterval {
+	border-width: 1px 0;
+	border-style: solid;
+	border-color: $border;
+	background-color: #FFF;
+	
+	.item {
+		display: flex;
+		align-items: center;
+		
+		.label {
+			padding-left: 4px;
+			width: 42px;
+			font-weight: 500;
+			line-height: 1;
+		}
+		
+		select {
+			padding: 14px 0 12px;
+			flex-grow: 1;
+			border: none;
+			font-size: inherit;
+			background: none;
+			border-radius: 0;
+			outline: none;
+			line-height: 1;
+			color: $secondary;
+		}
+		
+		& + .item { border-top: 1px solid #F1F2F3; }
 	}
 }
 

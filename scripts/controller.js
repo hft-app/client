@@ -71,6 +71,38 @@
 		}
 	}
 	
+	// Timetable intervals (ordered!)
+	get timetableStartOptions() {
+		return {
+			TODAY: () => {},
+			START_OF_WEEK: date => {
+				var daysSinceMonday = (date.getDay() + 6) % 7;
+				date.setDate(date.getDate() - daysSinceMonday);
+			},
+			START_OF_MONTH: date => date.setDate(1),
+			START_OF_SEMESTER: date => {
+				if(date.getMonth() < 2) date.setFullYear(date.getFullYear() - 1);// January and February
+				if(1 < date.getMonth() && date.getMonth() < 8) date.setMonth(2, 1);// March to August
+				else date.setMonth(8, 1);
+			},
+		};
+	}
+	get timetableEndOptions() {
+		return {
+			IN_4_WEEKS: date => date.setDate(date.getDate() + 4*7 - 1),
+			END_OF_WEEK: date => {
+				var daysUntilSunday = (7 - date.getDay()) % 7;
+				date.setDate(date.getDate() + daysUntilSunday);
+			},
+			END_OF_MONTH: date => date.setMonth(date.getMonth() + 1, 0),
+			END_OF_SEMESTER: date => {
+				if(date.getMonth() > 7) date.setFullYear(date.getFullYear() + 1);// September to December
+				if(1 < date.getMonth() && date.getMonth() < 8) date.setMonth(8, 0);// March to August
+				else date.setMonth(2, 0);
+			},
+		};
+	}
+	
 	// Constructor
 	constructor(version) {
 		this.cacheVersion = version;
