@@ -40,6 +40,16 @@ a {
 	color: inherit;
 }
 
+input[type="checkbox"] {
+	margin: 6px;
+	accent-color: $primary;
+	cursor: pointer;
+}
+
+label {
+	cursor: pointer;
+}
+
 .red { background-color: $primary; }
 
 .container {
@@ -278,6 +288,7 @@ footer {
 .dashboard {
 	padding: 24px 0 30px;
 	flex-grow: 1;
+	min-width: 0;// Required for text-overflow: ellipsis
 	
 	.widget {
 		margin-bottom: 28px;
@@ -515,7 +526,7 @@ nav {
 		}
 		
 		select {
-			padding: 14px 0 12px;
+			padding: 16px 0 14px;
 			flex-grow: 1;
 			border: none;
 			font-size: inherit;
@@ -532,8 +543,6 @@ nav {
 
 .subjects {
 	.item {
-		padding: 10px 0;
-		
 		&.active {
 			.courses { display: block; }
 			
@@ -547,29 +556,36 @@ nav {
 	
 	.header {
 		display: flex;
-		
-		.checkbox {
-			padding: 6px;
-			cursor: pointer;
-		}
+		align-items: center;
 		
 		.description {
-			line-height: 1;
+			padding: 14px 0;
 			display: flex;
 			align-items: center;
 			flex-grow: 1;
 			cursor: pointer;
+			min-width: 0;// Required for text-overflow: ellipsis
 		}
 		
 		.name {
 			font-weight: 500;
 			padding-left: 4px;
+			flex-shrink: 0;
 		}
 		
-		.amount {
+		// .amount {
+		// 	font-weight: 300;
+		// 	color: $secondary;
+		// 	padding-left: 4px;
+		// }
+		
+		.details {
 			font-weight: 300;
 			color: $secondary;
-			padding-left: 4px;
+			padding-left: 10px;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
 		}
 		
 		.arrow {
@@ -577,8 +593,7 @@ nav {
 			display: flex;
 			align-items: center;
 			justify-content: flex-end;
-			color: $icon;
-			font-size: 22px;
+			color: $secondary;
 			padding: 2px 6px 0;
 			
 			&::before {
@@ -589,41 +604,24 @@ nav {
 		
 	.courses {
 		display: none;
-		padding-left: 30px;
+		padding: 0 0 16px 28px;
 		
 		label {
 			display: flex;
 			align-items: center;
-			padding: 8px 0;
-		}
-		
-		.checkbox {
-			padding-right: 8px;
+			padding: 10px 0;
+			border-top: 1px solid #F1F2F3;
+			
+			.title {
+				padding-left: 4px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
 		}
 		
 		.no-courses {
-			padding: 8px 0;
-		}
-	}
-	
-	input[type="checkbox"] {
-		display: none;
-		
-		& ~ .checkbox::before {
-			content: "\f0c8";
-			color: $secondary;
-		}
-		
-		&:checked ~ .checkbox::before {
-			content: "\f14a";
-			color: $primary;
-			font-weight: 900;
-		}
-		
-		&:indeterminate ~ .checkbox::before {
-			content: "\f146";
-			color: $primary;
-			font-weight: 900;
+			padding: 10px 0;
 		}
 	}
 }
@@ -631,15 +629,8 @@ nav {
 .other {
 	.item {
 		label {
-			padding: 14px 0;
+			padding: 12px 0;
 			display: block;
-			cursor: pointer;
-		}
-		
-		input[type="checkbox"] {
-			margin: 6px;
-			accent-color: $primary;
-			cursor: pointer;
 		}
 		
 		& + .item { border-top: 1px solid #F1F2F3; }

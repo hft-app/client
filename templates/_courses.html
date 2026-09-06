@@ -74,11 +74,11 @@
 									<div class="header">
 										<label>
 											<input type="checkbox">
-											<span class="fa-regular checkbox"></span>
 										</label>
 										<div class="description">
 											<span class="name">{{name}}</span>
-											<span class="amount">({{courses.length}})</span>
+											<!-- <span class="amount">({{courses.length}})</span> -->
+											<span class="details">{{longName}}</span>
 											<span class="arrow fa-solid"></span>
 										</div>
 									</div>
@@ -91,8 +91,7 @@
 										{{#courses}}
 											<label>
 												<input type="checkbox" name="{{subject}}/{{id}}" value="on" {{#enrolled}}checked{{/enrolled}}>
-												<span class="fa-regular checkbox"></span>
-												<span>{{title}}</span>
+												<span class="title">{{title}}</span>
 											</label>
 										{{/courses}}
 									</div>
