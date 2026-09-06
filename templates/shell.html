@@ -16,6 +16,19 @@
 		
 		<script src="/scripts/client/lu.min.js" defer></script>
 		<script src="/scripts/client/shell.js" defer></script>
+		{{^ignoreBodyHeight}}
+			<script type="text/javascript">
+				/**
+				* Set the body height to window.outerHeight when starting from homescreen.
+				* This is very important because 100vh and 100dvh are both too short on Safari but too long on Chrome.
+				* But it can be disabled by the user, because Apple messed up the safe area in iOS 26.1 (https://bugs.webkit.org/show_bug.cgi?id=301994).
+				* As failsafe, the default is set to be 100svh in CSS.
+				*/
+				document.addEventListener('DOMContentLoaded', () => {
+					if(window.matchMedia('(display-mode: standalone)').matches) document.body.style.height = window.outerHeight+'px';
+				});
+			</script>
+		{{/ignoreBodyHeight}}
 	</head>
 	<body>
 		<header>

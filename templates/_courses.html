@@ -37,7 +37,7 @@
 					<div class="container">
 						<h5>Zeitraum auswählen</h5>
 					</div>
-					<div class="timetableInterval">
+					<div class="timetableInterval background">
 						<div class="container">
 							<div class="item">
 								<span class="label">von</span>
@@ -67,7 +67,7 @@
 						<span class="fa-solid fa-circle-info" style="padding-right:2px"></span>
 						<span>Die Kurse der Fakultät A können im WiSe 26/27 nicht in der App angezeigt werden.</span>
 					</div>
-					<div class="subjects">
+					<div class="subjects background">
 						<div class="container">
 							{{#subjects}}
 								<div class="item">
@@ -98,6 +98,22 @@
 									</div>
 								</div>
 							{{/subjects}}
+						</div>
+					</div>
+				</div>
+				
+				<div class="widget">
+					<div class="container">
+						<h5>Weitere Einstellungen</h5>
+					</div>
+					<div class="other background">
+						<div class="container">
+							<div class="item">
+								<label>
+									<input type="checkbox" value="on" {{^ignoreBodyHeight}}checked{{/ignoreBodyHeight}} name="fitBodyHeight">
+									<span class="label">An Bildschirmhöhe anpassen</span>
+								</label>
+							</div>
 						</div>
 					</div>
 				</div>

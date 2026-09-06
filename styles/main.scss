@@ -280,13 +280,20 @@ footer {
 	flex-grow: 1;
 	
 	.widget {
-		margin-bottom: 24px;
+		margin-bottom: 28px;
 	}
 				
 	h5 {
 		margin: 0 0 12px;
 		color: $secondary;
 		font-weight: 500;
+	}
+	
+	.background {
+		border-width: 1px 0;
+		border-style: solid;
+		border-color: $border;
+		background-color: #FFF;
 	}
 }
 
@@ -496,11 +503,6 @@ nav {
 }
 
 .timetableInterval {
-	border-width: 1px 0;
-	border-style: solid;
-	border-color: $border;
-	background-color: #FFF;
-	
 	.item {
 		display: flex;
 		align-items: center;
@@ -529,11 +531,6 @@ nav {
 }
 
 .subjects {
-	border-width: 1px 0;
-	border-style: solid;
-	border-color: $border;
-	background-color: #FFF;
-	
 	.item {
 		padding: 10px 0;
 		
@@ -628,5 +625,23 @@ nav {
 			color: $primary;
 			font-weight: 900;
 		}
+	}
+}
+
+.other {
+	.item {
+		label {
+			padding: 14px 0;
+			display: block;
+			cursor: pointer;
+		}
+		
+		input[type="checkbox"] {
+			margin: 6px;
+			accent-color: $primary;
+			cursor: pointer;
+		}
+		
+		& + .item { border-top: 1px solid #F1F2F3; }
 	}
 }
