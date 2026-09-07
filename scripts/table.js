@@ -130,11 +130,12 @@ class Table {
 				cell.placed = true;
 				table+= Elements.render(`
 					<td class="occupied" colspan="{{colspan}}" rowspan="{{rowspan}}">
-						<div class="lecture" style="background-color: {{color}}"
+						<div class="lecture"
 							{{#lecturer}}data-lecturer="{{.}}"{{/lecturer}}
 							{{#start}}data-start="{{c}}"{{/start}}
 							{{#end}}data-end="{{c}}"{{/end}}
 						>
+							<div class="polygon" style="background-color: {{color}}"></div>
 							<div class="title">
 								{{title}}
 							</div>
@@ -144,13 +145,13 @@ class Table {
 							<div class="info">
 								{{#lecturer}}
 									<div class="lecturer data">
-										<span class="icon fa-solid fa-user"></span>
+										<span class="icon las la-user"></span>
 										<span>{{.}}</span>
 									</div>
 								{{/lecturer}}
 								{{#room}}
 									<div class="room data">
-										<span class="icon fa-solid fa-location-dot"></span>
+										<span class="icon las la-map-marker"></span>
 										<span>{{.}}</span>
 									</div>
 								{{/room}}

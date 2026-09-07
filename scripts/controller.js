@@ -19,14 +19,11 @@
 	 * - the app might be installed from a subdirectory like /launcher which would result in different paths otherwise
 	 */
 	get cachedFiles() {
-		return [
-			'/fontawesome/css/fontawesome.min.css',
-			'/fontawesome/css/solid.min.css',
-			'/fontawesome/css/regular.min.css',
-			'/fontawesome/webfonts/fa-solid-900.ttf',
-			'/fontawesome/webfonts/fa-solid-900.woff2',
-			'/fontawesome/webfonts/fa-regular-400.ttf',
-			'/fontawesome/webfonts/fa-regular-400.woff2',
+		return [			
+			'/fonts/EuclidCircularA-Regular.ttf',
+			'/fonts/EuclidCircularA-Semibold.ttf',
+			'/fonts/HFT45-Bold.ttf',
+			'/fonts/la-solid-900.woff2',
 			
 			'/scripts/client/courses.js',
 			'/scripts/client/lectures.js',
@@ -34,6 +31,7 @@
 			'/scripts/client/shell.js',
 			
 			'/styles/main.css',
+			'/styles/line-awesome.css',
 			
 			'/expressions/de.json',
 			
@@ -71,12 +69,44 @@
 		}
 	}
 	
+	// Timetable intervals (ordered!)
+	get timetableStartOptions() {
+		return {
+			TODAY: () => {},
+			START_OF_WEEK: date => {
+				var daysSinceMonday = (date.getDay() + 6) % 7;
+				date.setDate(date.getDate() - daysSinceMonday);
+			},
+			START_OF_MONTH: date => date.setDate(1),
+			START_OF_SEMESTER: date => {
+				if(date.getMonth() < 2) date.setFullYear(date.getFullYear() - 1);// January and February
+				if(1 < date.getMonth() && date.getMonth() < 8) date.setMonth(2, 1);// March to August
+				else date.setMonth(8, 1);
+			},
+		};
+	}
+	get timetableEndOptions() {
+		return {
+			IN_4_WEEKS: date => date.setDate(date.getDate() + 4*7 - 1),
+			END_OF_WEEK: date => {
+				var daysUntilSunday = (7 - date.getDay()) % 7;
+				date.setDate(date.getDate() + daysUntilSunday);
+			},
+			END_OF_MONTH: date => date.setMonth(date.getMonth() + 1, 0),
+			END_OF_SEMESTER: date => {
+				if(date.getMonth() > 7) date.setFullYear(date.getFullYear() + 1);// September to December
+				if(1 < date.getMonth() && date.getMonth() < 8) date.setMonth(8, 0);// March to August
+				else date.setMonth(2, 0);
+			},
+		};
+	}
+	
 	// Constructor
 	constructor(version) {
 		this.cacheVersion = version;
 		this.server = '/server/';
 		
-		// Setup handlers
+		// Setup handlers (ordered!)
 		this.requestHandlers = [
 			new StartHandler(this),
 			new CoreHandler(this),

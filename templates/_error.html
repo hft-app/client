@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<div class="screen">
 			<div class="container">
-				<div class="icon fa-solid fa-triangle-exclamation"></div>
+				<div class="icon las la-exclamation-triangle"></div>
 				<div class="title">{{title}}</div>
 				<div class="line"></div>
 				<div class="info">
@@ -16,12 +16,12 @@
 	<div class="wrapper">
 		<div class="screen">
 			<div class="container">
-				<div class="icon fa-solid fa-triangle-exclamation"></div>
+				<div class="icon las la-exclamation-triangle"></div>
 				<div class="title">Unbekannter Fehler</div>
 				<div class="line"></div>
 				<div class="info">
 					<p>Das hätte nicht passieren sollen.</p>
-					{{#exception}}<p>Fehlercode: {{.}}</p>{{/exception}}
+					{{#exception}}<p><code>{{.}}</code></p>{{/exception}}
 				</div>
 				<a class="button" href="/launcher/start">App neustarten</a>
 			</div>

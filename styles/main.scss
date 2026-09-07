@@ -1,9 +1,51 @@
-$primary: #D41A17;
-$border: #DDDFE2;
-$icon: #D6D6D6;
-$secondary: #949596;
+@font-face {
+	font-family: 'Euclid Circular A';
+	src: url('/fonts/EuclidCircularA-Regular.ttf');
+	font-weight: 400;
+}
 
-$shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+@font-face {
+	font-family: 'Euclid Circular A';
+	src: url('/fonts/EuclidCircularA-Semibold.ttf');
+	font-weight: 600;
+}
+
+@font-face {
+	font-family: 'HFT 45';
+	src: url('/fonts/HFT45-Bold.ttf');
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		color-scheme: light;
+		--primary: #E42832;
+		--secondary: #1E3C82;
+		--background: #FFF;
+		--background-soft: #FAFBFC;
+		--border: #DDDFE2;
+		--divider: #F1F2F3;
+		--text: #1D2129;
+		--gray: #949596;
+		--block: #F4F6F8;
+		--timetableHead: rgba(252,252,252,.85);
+	}
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		color-scheme: dark;
+		--primary: #50AAFF;
+		--secondary: #FFD241;
+		--background: #152028;
+		--background-soft: #232B32;
+		--border: #2e363e;
+		--divider: #1f2831;
+		--text: #FFF;
+		--gray: #818283;
+		--block: #27323c;
+		--timetableHead: var(--background-soft);
+	}
+}
 
 * {
 	box-sizing: border-box;
@@ -14,14 +56,14 @@ body {
 	max-height: 100lvh; // Never longer than the viewport with expanded browser controls
 	height: 100svh; // 100dvh and 100vh are both too long in Chrome but too short in Safari, so the actual height will be set in JS
 	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+	font-family: 'Euclid Circular A', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 	display: flex;
 	flex-direction: column;
 	font-size: 16px;
-	color: #1D2129;
+	color: var(--text);
 	overscroll-behavior-y: contain; // Prevent pull-to-refresh on Android
 	overflow: hidden;
-	background-color: #FAFBFC;
+	background-color: var(--background-soft);
 	user-select: none;
 	-webkit-user-select: none; // Prevent text selection on iOS
 	-webkit-tap-highlight-color: rgba(0,0,0,0); // Disable boxes around links in iOS
@@ -32,21 +74,34 @@ p {
 	margin: 0;
 	line-height: 1.4;
 	
-	& + p { margin-top: 6px; }
+	& + p { margin-top: 2px; }
 }
 
 a {
 	text-decoration: none;
 	color: inherit;
+	cursor: pointer;
 }
 
-.red { background-color: $primary; }
+select {
+	cursor: pointer;
+}
+
+input[type="checkbox"] {
+	margin: 6px;
+	accent-color: var(--primary);
+	cursor: pointer;
+}
+
+label {
+	cursor: pointer;
+}
 
 .container {
 	margin: 0 auto;
 	width: 100%;
 	padding: 0 15px;
-	max-width: 1024px;
+	max-width: 720px;
 }
 
 .wrapper {
@@ -73,17 +128,17 @@ iframe {
 }
 
 header {
-	background: linear-gradient($primary, darken($primary, 3%));
-	color: #FFF;
+	background-color: var(--background);
+	color: var(--primary);
 	z-index: 10;
-	box-shadow: $shadow;
-	font-size: 22px;
-	padding: 13px 0;
+	border-bottom: 1px solid var(--border);
+	padding: 10px 0;
 	padding-top: max(13px, env(safe-area-inset-top));
 	flex-shrink: 0;
 	overflow: hidden; // Chrome otherwise scales the viewport if the content exceeds its dimensions
 	
 	.container {
+		margin-top: 22px;// Temporary fix for too low liquid-glass-effect on iOS 27
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -92,17 +147,19 @@ header {
 	a {
 		padding: 6px;
 		line-height: 1;
+		font-size: 28px;
 	}
 	
 	.title {
 		padding: 0 8px;
-		font-weight: 300;
+		font-family: 'HFT 45';
+		font-size: 24px;
 	}
 }
 
 footer {
-	background: #FFF;
-	border-top: 1px solid $border;
+	background: var(--background);
+	border-top: 1px solid var(--border);
 	padding: 9px 0;
 	padding-bottom: max(9px, env(safe-area-inset-bottom));
 	flex-shrink: 0;
@@ -120,66 +177,60 @@ footer {
 		width: 20%;
 		
 		.icon {
-			font-size: 1.6em;
+			font-size: 28px;
 			padding-bottom: 2px;
-			color: $icon;
-			text-shadow: 1px 1px 1px #FFF;
+			color: var(--gray);
 		}
 			
 		.title {
-			font-weight: 300;
 			font-size: 0.8em;
-			color: $secondary;
+			color: var(--gray);
+			font-weight: 600;
 		}
 		
-		&.active span { color: $primary; }
+		&.active span { color: var(--primary); }
 	}
 }
 
 .event {
-	background-color: #FFF;
+	background-color: var(--background);
 	border-radius: 3px;
-	border: 1px solid $border;
-	padding: 12px 16px;
+	border: 1px solid var(--border);
+	padding: 12px 14px;
 	display: flex;
 	flex-direction: column;
-	
-	& + .event { margin-top: 12px; }
+	margin-top: 14px;
 	
 	.range {
-		color: $primary;
+		color: var(--primary);
 		text-transform: uppercase;
-		font-weight: 500;
-		font-size: 13px;
+		font-weight: 600;
+		font-size: 14px;
 	}
 	
 	.title {
-		font-size: 17px;
-		//font-weight: 500;
 		margin-top: 8px;
 	}
 	
 	.link {
 		align-self: flex-end;
-		color: $primary;
-		font-weight: 500;
+		color: var(--primary);
 		margin-top: 8px;
-		font-size: 13px;
+		font-size: 12px;
 		
 		.icon {
 			margin-left: 2px;
-			font-size: 10px;
 		}
 	}
 }
 
 .article {
-	background-color: #FFF;
-	border-radius: 4px;
-	border: 1px solid $border;
-	overflow: hidden;
+	background-color: var(--primary);
+	color: var(--background);
+	clip-path: polygon(0% 5px,5px 0%,calc(100% - 10px) 0%,100% 10px,100% calc(100% - 5px),calc(100% - 5px) 100%,10px 100%,0% calc(100% - 10px));
 	display: none;
-	margin-bottom: 12px;
+	margin-top: 16px;
+	padding: 12px 16px;
 	
 	&.display-always, &.display-browser {
 		display: flex;
@@ -194,18 +245,10 @@ footer {
 			display: flex;
 		}
 	}
-	
-	.title {
-		font-weight: 500;
-		font-size: 17px;
-		margin-bottom: 4px;
-	}
 		
-	.strip {
-		padding: 0.5em 0;
-		color: #FFF;
-		font-size: 1.6em;
-		width: 2.5em;
+	.icon {
+		font-size: 1.8em;
+		width: 1.3em;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -214,86 +257,93 @@ footer {
 	
 	.text {
 		flex-grow: 1;
-		padding: 12px 16px;
+		padding: 0 12px;
+	}
+	
+	.title {
+		font-weight: 600;
+		margin-bottom: 4px;
 	}
 	
 	.description {
 		font-size: 14px;
-		color: $secondary;
 	}
 	
 	.arrow {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding-right: 0.8em;;
-		color: $icon;
 		flex-shrink: 0;
 		font-size: 1.4em;
 	}
 }
 
-.list {
-	padding: 20px 0;
-	margin: 0 auto;
-}
-
 .screen {
-	color: $secondary;
+	color: var(--gray);
 	text-align: center;
 	margin: auto;
 	padding: 30px 0;
 	
 	.icon {
 		font-size: 64px;
-		text-shadow: 1px 1px 1px #FFF;
-		color: $icon;
+		color: var(--gray);
 		margin-bottom: 24px;
 	}
 	
 	.title {
 		font-size: 24px;
-		font-weight: 300;
+		font-family: 'HFT 45';
 	}
 	
 	.line {
-		height: 1px;
 		margin: 16px 40px 14px;
-		background: linear-gradient(to right, rgba($border, 0) 0%, $border 20%, $border 80%, rgba($border, 0) 100%);
-		box-shadow: 1px 1px 1px #FFF;
+		border-bottom: 1px solid var(--border);
+		box-shadow: 1px 1px 1px var(--background);
 	}
 	
 	.button {
-		color: #FFF;
-		background-color: $primary;
-		padding: 12px 36px;
-		box-shadow: $shadow;
+		color: var(--background);
+		background-color: var(--primary);
+		padding: 12px 32px 12px;
 		font-weight: 600;
+		font-size: 1.2em;
 		margin-top: 60px;
-		border-radius: 40px;
 		display: inline-block;
+		clip-path: polygon(0% 5px,5px 0%,calc(100% - 10px) 0%,100% 10px,100% calc(100% - 5px),calc(100% - 5px) 100%,10px 100%,0% calc(100% - 10px));
+		transition: background-color ease 0.2s;
+		line-height: 1;
+		
+		&:hover {
+			background-color: var(--secondary);
+		}
 	}
 }
 
 .dashboard {
-	padding: 10px 0 30px;
 	flex-grow: 1;
+	min-width: 0;// Required for text-overflow: ellipsis
 	
 	.widget {
-		margin-bottom: 12px;
+		margin-top: 28px;
 	}
 				
 	h5 {
-		margin: 0 0 12px;
-		color: $secondary;
-		font-weight: 500;
+		margin: 0 0 8px;
+		color: var(--gray);
+		font-weight: 600;
+	}
+	
+	.background {
+		border-width: 1px 0;
+		border-style: solid;
+		border-color: var(--border);
+		background-color: var(--background);
 	}
 }
 
 nav {
-	background-color: #FFF;
-	border-bottom: 1px solid $border;
-	color: $secondary;
+	background-color: var(--background);
+	border-top: 1px solid var(--border);
 	z-index: 9;
 	
 	.container {
@@ -304,8 +354,8 @@ nav {
 	}
 	
 	a {
-		padding: 8px 0;
-		color: $primary;
+		padding: 8px 6px;
+		color: var(--primary);
 		
 		.icon {
 			margin-right: 3px;
@@ -315,7 +365,7 @@ nav {
 			.status-active { display: none; }
 			
 			&.active {
-				color: $secondary;
+				color: var(--gray);
 				
 				.status-idle { display: none; }
 				.status-active { display: inline-block; }
@@ -323,10 +373,10 @@ nav {
 		}
 		
 		&.reset {
-			color: $secondary;
+			color: var(--gray);
 			
 			&.active {
-				color: $primary;
+				color: var(--primary);
 			}
 		}
 	}
@@ -334,12 +384,11 @@ nav {
 
 .note {
 	text-align: center;
-	padding-top: 8px;
-	color: $secondary;
+	color: var(--gray);
 	font-size: 0.7em;
-	font-weight: 300;
+	padding: 26px 0;
 	
-	a { font-weight: 500; }
+	a { font-weight: 600; }
 }
 
 .timetable { $height: 13px; // Perfectly fills the screen on iPhone 12 mini
@@ -361,7 +410,7 @@ nav {
 		.head {
 			height: 54px;
 			backdrop-filter: blur(10px);
-			background-color: rgba(252,252,252,.85);
+			background-color: var(--timetableHead);
 			display: flex;
 			flex-direction: column;
 			align-items: center;
@@ -373,12 +422,12 @@ nav {
 					
 			.day {
 				font-size: 14px;
-				font-weight: 500;
+				font-weight: 600;
 			}
 			
 			.date {
 				font-size: 12px;
-				color: $secondary;
+				color: var(--gray);
 			}
 		}
 		
@@ -389,11 +438,12 @@ nav {
 			tr {
 				height: $height;
 				
-				&.block { background-color: #F4F6F8; }
+				&.block { background-color: var(--block); }
 			
 				td.occupied {
 					position: relative;
 					min-width: 120px;
+					background-color: var(--background-soft);// The hightlighted block rectangle should not be visible at the corners of the lecture polygon
 					
 					&[colspan="12"] { min-width: 140px; }
 				}
@@ -410,21 +460,32 @@ nav {
 		color: #FFF;
 		display: flex;
 		flex-direction: column;
-		border-radius: 3px;
+		
+		.polygon {
+			clip-path: polygon(0% 3px,3px 0%,calc(100% - 6px) 0%,100% 6px,100% calc(100% - 3px),calc(100% - 3px) 100%,6px 100%,0% calc(100% - 6px));
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
 		
 		.title {
+			position: relative;// Over the polygon
 			font-size: 12px;
-			padding: 5px 6px 0;
+			padding: 7px 6px 0;
 			display: -webkit-box;
 			-webkit-line-clamp: 2;
 			-webkit-box-orient: vertical;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			word-wrap: break-word;
-			font-weight: 500;
+			font-weight: 600;
+			line-height: 1.1;
 		}
 		
-		.time {			
+		.time {
+			position: relative;// Over the polygon
 			font-size: 10px;
 			padding: 2px 6px 0;
 		}
@@ -433,7 +494,7 @@ nav {
 			font-size: 10px;
 			display: flex;
 			justify-content: space-between;
-			padding: 0 6px 5px;
+			padding: 0 6px 4px;
 			position: absolute;
 			bottom: 0;
 			right: 0;
@@ -496,15 +557,36 @@ nav {
 	}
 }
 
-.subjects {
-	border-width: 1px 0;
-	border-style: solid;
-	border-color: $border;
-	background-color: #FFF;
-	
+.timetableInterval {
 	.item {
-		padding: 10px 0;
+		display: flex;
+		align-items: center;
 		
+		.label {
+			padding-left: 4px;
+			width: 42px;
+			font-weight: 600;
+			line-height: 1;
+		}
+		
+		select {
+			padding: 16px 0 14px;
+			flex-grow: 1;
+			border: none;
+			font-size: inherit;
+			background: none;
+			border-radius: 0;
+			outline: none;
+			line-height: 1;
+			color: var(--gray);
+		}
+		
+		& + .item { border-top: 1px solid var(--divider); }
+	}
+}
+
+.subjects {
+	.item {
 		&.active {
 			.courses { display: block; }
 			
@@ -513,34 +595,39 @@ nav {
 			}
 		}
 		
-		& + .item { border-top: 1px solid #F1F2F3; }
+		& + .item { border-top: 1px solid var(--divider); }
 	}
 	
 	.header {
 		display: flex;
-		
-		.checkbox {
-			padding: 6px;
-			cursor: pointer;
-		}
+		align-items: center;
 		
 		.description {
-			line-height: 1;
+			padding: 15px 0 13px;
 			display: flex;
 			align-items: center;
 			flex-grow: 1;
 			cursor: pointer;
+			min-width: 0;// Required for text-overflow: ellipsis
 		}
 		
 		.name {
-			font-weight: 500;
+			font-weight: 600;
 			padding-left: 4px;
+			flex-shrink: 0;
 		}
 		
-		.amount {
-			font-weight: 300;
-			color: $secondary;
-			padding-left: 4px;
+		// .amount {
+		// 	color: var(--gray);
+		// 	padding-left: 4px;
+		// }
+		
+		.details {
+			color: var(--gray);
+			padding: 0 10px;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
 		}
 		
 		.arrow {
@@ -548,9 +635,8 @@ nav {
 			display: flex;
 			align-items: center;
 			justify-content: flex-end;
-			color: $icon;
-			font-size: 22px;
-			padding: 2px 6px 0;
+			color: var(--gray);
+			padding-right: 6px;
 			
 			&::before {
 				content: "\f107";
@@ -560,41 +646,35 @@ nav {
 		
 	.courses {
 		display: none;
-		padding-left: 30px;
+		padding: 0 0 16px 28px;
 		
 		label {
 			display: flex;
 			align-items: center;
-			padding: 8px 0;
-		}
-		
-		.checkbox {
-			padding-right: 8px;
+			padding: 10px 0;
+			border-top: 1px solid var(--divider);
+			
+			.title {
+				padding-left: 4px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
 		}
 		
 		.no-courses {
-			padding: 8px 0;
+			padding: 10px 0;
 		}
 	}
-	
-	input[type="checkbox"] {
-		display: none;
-		
-		& ~ .checkbox::before {
-			content: "\f0c8";
-			color: $secondary;
+}
+
+.other {
+	.item {
+		label {
+			padding: 12px 0;
+			display: block;
 		}
 		
-		&:checked ~ .checkbox::before {
-			content: "\f14a";
-			color: $primary;
-			font-weight: 900;
-		}
-		
-		&:indeterminate ~ .checkbox::before {
-			content: "\f146";
-			color: $primary;
-			font-weight: 900;
-		}
+		& + .item { border-top: 1px solid var(--divider); }
 	}
 }

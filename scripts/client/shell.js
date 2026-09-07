@@ -17,7 +17,7 @@ window.addEventListener('touchmove', e => {
 
 // Bind the listener for the refresh button
 $('header .refresh').on('click', function(){
-	this.classList.add('fa-spin');
+	this.classList.add('la-spin');
 });
 
 // Defer the install prompt and bind it to corresponding links
@@ -42,16 +42,3 @@ document.querySelectorAll('a[href="SHARE"]').forEach(a => {
 		}
 	});
 });
-
-/**
- * Set the body height to window.outerHeight when starting from homescreen.
- * This is very important because 100vh and 100dvh are both too short on Safari but too long on Chrome.
- * As failsafe, the default is set to be 100svh in CSS.
- */
-// HOTFIX 2025-11-18: Apple messed up the safe area in iOS 26.1 (https://bugs.webkit.org/show_bug.cgi?id=301994)
-const ua = window.navigator.userAgent;
-const isIOS = /iP(ad|hone|od)/.test(ua);
-const isWebkit = /WebKit/.test(ua);
-if(!isIOS || !isWebkit) {
-	if(window.matchMedia('(display-mode: standalone)').matches) document.body.style.height = window.outerHeight+'px';
-}

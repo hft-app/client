@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<div class="screen">
 			<div class="container">
-				<div class="icon fa-solid fa-circle-question"></div>
+				<div class="icon las la-folder-open"></div>
 				<div class="title">Nichts gefunden</div>
 				<div class="line"></div>
 				<div class="info">
@@ -16,18 +16,21 @@
 
 {{#events.length}}
 	<div class="wrapper">
-		<div class="list">
-			<div class="container">
-				{{#events}}
-					<div class="event">
-						<div class="range">{{range}}</div>
-						<div class="title">{{title}}</div>
-						{{#link}}<a class="link" href="{{.}}" target="_blank">
-							<span>mehr anzeigen</span>
-							<span class="icon fa-solid fa-arrow-up-right-from-square"></span>
-						</a>{{/link}}
-					</div>
-				{{/events}}
+		<div class="container">
+			{{#events}}
+				<div class="event">
+					<div class="range">{{range}}</div>
+					<div class="title">{{title}}</div>
+					{{#link}}<a class="link" href="{{.}}" target="_blank">
+						<span>mehr anzeigen</span>
+						<span class="icon las la-external-link-square-alt"></span>
+					</a>{{/link}}
+				</div>
+			{{/events}}
+			<div class="note">
+				<div class="container">
+					<p>Alle Angaben ohne Gewähr</p>
+				</div>
 			</div>
 		</div>
 	</div>

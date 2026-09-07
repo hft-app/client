@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<div class="screen">
 			<div class="container">
-				<div class="icon fa-solid fa-circle-question"></div>
+				<div class="icon las la-folder-open"></div>
 				<div class="title">Nichts gefunden</div>
 				<div class="line"></div>
 				<div class="info">
@@ -15,74 +15,115 @@
 {{/subjects.length}}
 {{#subjects.length}}
 	<script type="module" src="scripts/client/courses.js"></script>
-
+	
+	<div class="wrapper">
+		<div class="dashboard">
+			<form method="POST" action="/courses/?submit">				
+				<div class="widget">
+					<div class="container">
+						<h5>Vorlesungen anzeigen</h5>
+					</div>
+					<div class="timetableInterval background">
+						<div class="container">
+							<div class="item">
+								<span class="label">von</span>
+								<select name="timetableStartOption">
+									{{#timetableStartOptions}}
+										<option {{#selected}}selected{{/selected}} value="{{key}}">[[timetableIntervalOption.{{key}}]]</option>
+									{{/timetableStartOptions}}
+								</select>
+							</div>
+							<div class="item">
+								<span class="label">bis</span>
+								<select name="timetableEndOption">
+									{{#timetableEndOptions}}
+										<option {{#selected}}selected{{/selected}} value="{{key}}">[[timetableIntervalOption.{{key}}]]</option>
+									{{/timetableEndOptions}}
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+					
+				<div class="widget">
+					<div class="container">
+						<h5>Kurse auswählen</h5>
+					</div>
+					<div class="container" style="padding-bottom: 10px; color: #949596; font-size: .7em">
+						<span class="las la-info-circle" style="padding-right:2px"></span>
+						<span>Die Kurse der Fakultät A können im WiSe 26/27 nicht in der App angezeigt werden.</span>
+					</div>
+					<div class="subjects background">
+						<div class="container">
+							{{#subjects}}
+								<div class="item">
+									<div class="header">
+										<label>
+											<input type="checkbox">
+										</label>
+										<div class="description">
+											<span class="name">{{name}}</span>
+											<!-- <span class="amount">({{courses.length}})</span> -->
+											<span class="details">{{longName}}</span>
+											<span class="arrow las"></span>
+										</div>
+									</div>
+									<div class="courses">
+										{{^courses}}
+											<div class="no-courses">
+												Aktuell keine Lehrveranstaltungen.
+											</div>
+										{{/courses}}
+										{{#courses}}
+											<label>
+												<input type="checkbox" name="{{subject}}/{{id}}" value="on" {{#enrolled}}checked{{/enrolled}}>
+												<span class="title">{{title}}</span>
+											</label>
+										{{/courses}}
+									</div>
+								</div>
+							{{/subjects}}
+						</div>
+					</div>
+				</div>
+				
+				<div class="widget">
+					<div class="container">
+						<h5>Weitere Einstellungen</h5>
+					</div>
+					<div class="other background">
+						<div class="container">
+							<div class="item">
+								<label>
+									<input type="checkbox" value="on" {{^ignoreBodyHeight}}checked{{/ignoreBodyHeight}} name="fitBodyHeight">
+									<span class="label">An Bildschirmhöhe anpassen</span>
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="note">
+					<div class="container">
+						<p>Du kannst deine Kurse nicht finden?</p>
+						<p><a href="mailto:support@hft-app.de?subject=Fehlende Kurse" title="Fehlende Kurse melden">Hier melden</a></p>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
 	<nav>
-		<div class="bar container">
+		<div class="container">
 			<a class="reset">
-				<span class="icon fa-regular fa-trash-can"></span>
-				<span>Zurücksetzen</span>
+				<span class="icon las la-ban"></span>
+				<span>Alle abwählen</span>
 			</a>
 			<a class="save">
-				<span class="status-active icon fa-solid fa-spin fa-circle-notch"></span>
-				<span class="status-idle icon fa-regular fa-floppy-disk"></span>
+				<span class="status-active icon las la-spin la-spinner"></span>
+				<span class="status-idle icon las la-check"></span>
 				<span>Speichern</span>
 			</a>
 		</div>
 	</nav>
-	
-	<div class="wrapper">
-		<div class="dashboard">
-			<div style="padding-bottom: 16px; color: #949596; font-size: .7em">
-				<div class="container">
-					<span class="fa-solid fa-circle-info" style="padding-right:2px"></span>
-					<span>Die Kurse der Fakultät A können im WiSe 26/27 nicht in der App angezeigt werden.</span>
-				</div>
-			</div>
-			<div class="widget">
-				<div class="container">
-					<h5>Kurse auswählen</h5>
-				</div>
-				<form class="subjects" method="POST" action="/courses/?submit">
-					<div class="container">
-						{{#subjects}}
-							<div class="item">
-								<div class="header">
-									<label>
-										<input type="checkbox">
-										<span class="fa-regular checkbox"></span>
-									</label>
-									<div class="description">
-										<span class="name">{{name}}</span>
-										<span class="amount">({{courses.length}})</span>
-										<span class="arrow fa-solid"></span>
-									</div>
-								</div>
-								<div class="courses">
-									{{^courses}}
-										<div class="no-courses">
-											Aktuell keine Lehrveranstaltungen.
-										</div>
-									{{/courses}}
-									{{#courses}}
-										<label>
-											<input type="checkbox" name="{{subject}}/{{id}}" value="on" {{#enrolled}}checked{{/enrolled}}>
-											<span class="fa-regular checkbox"></span>
-											<span>{{title}}</span>
-										</label>
-									{{/courses}}
-								</div>
-							</div>
-						{{/subjects}}
-					</div>
-				</form>
-			</div>
-			
-			<div class="note">
-				<div class="container">
-					<p>Du kannst deine Kurse nicht finden?</p>
-					<p><a href="mailto:support@hft-app.de?subject=Fehlende Kurse" title="Fehlende Kurse melden">Hier melden</a></p>
-				</div>
-			</div>
-		</div>
-	</div>
 {{/subjects.length}}

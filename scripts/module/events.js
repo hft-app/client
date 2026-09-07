@@ -1,7 +1,7 @@
 class Events {
 	constructor(handler) {
 		this.handler = handler;
-		this.icon = 'calendar-days';
+		this.icon = 'calendar';
 	}
 	
 	isOnSameDay(date1, date2) {
