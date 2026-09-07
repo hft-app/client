@@ -9,7 +9,7 @@ class CoreHandler {
 			'events': new Events(this),
 			'lectures': new Lectures(this),
 			'meals': new Frame('/sws/frame.html', 'utensils'),
-			'tips': new List(this, 'tips', 'link'),
+			'tips': new List(this, 'tips', 'external-link-alt'),
 			'courses': new Courses(this),
 			'error': new Error(this),
 			'welcome': new Welcome(this),

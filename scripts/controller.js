@@ -19,14 +19,11 @@
 	 * - the app might be installed from a subdirectory like /launcher which would result in different paths otherwise
 	 */
 	get cachedFiles() {
-		return [
-			'/fontawesome/css/fontawesome.min.css',
-			'/fontawesome/css/solid.min.css',
-			'/fontawesome/css/regular.min.css',
-			'/fontawesome/webfonts/fa-solid-900.ttf',
-			'/fontawesome/webfonts/fa-solid-900.woff2',
-			'/fontawesome/webfonts/fa-regular-400.ttf',
-			'/fontawesome/webfonts/fa-regular-400.woff2',
+		return [			
+			'/fonts/EuclidCircularA-Regular.ttf',
+			'/fonts/EuclidCircularA-Semibold.ttf',
+			'/fonts/HFT45-Bold.ttf',
+			'/fonts/la-solid-900.woff2',
 			
 			'/scripts/client/courses.js',
 			'/scripts/client/lectures.js',
@@ -34,6 +31,7 @@
 			'/scripts/client/shell.js',
 			
 			'/styles/main.css',
+			'/styles/line-awesome.css',
 			
 			'/expressions/de.json',
 			
@@ -108,7 +106,7 @@
 		this.cacheVersion = version;
 		this.server = '/server/';
 		
-		// Setup handlers
+		// Setup handlers (ordered!)
 		this.requestHandlers = [
 			new StartHandler(this),
 			new CoreHandler(this),

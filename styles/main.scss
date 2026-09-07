@@ -1,9 +1,23 @@
 $primary: #D41A17;
 $border: #DDDFE2;
-$icon: #D6D6D6;
 $secondary: #949596;
 
-$shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+@font-face {
+	font-family: 'Euclid Circular A';
+	src: url('/fonts/EuclidCircularA-Regular.ttf');
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: 'Euclid Circular A';
+	src: url('/fonts/EuclidCircularA-Semibold.ttf');
+	font-weight: 600;
+}
+
+@font-face {
+	font-family: 'HFT 45';
+	src: url('/fonts/HFT45-Bold.ttf');
+}
 
 * {
 	box-sizing: border-box;
@@ -14,7 +28,7 @@ body {
 	max-height: 100lvh; // Never longer than the viewport with expanded browser controls
 	height: 100svh; // 100dvh and 100vh are both too long in Chrome but too short in Safari, so the actual height will be set in JS
 	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+	font-family: 'Euclid Circular A', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 	display: flex;
 	flex-direction: column;
 	font-size: 16px;
@@ -32,12 +46,17 @@ p {
 	margin: 0;
 	line-height: 1.4;
 	
-	& + p { margin-top: 6px; }
+	& + p { margin-top: 2px; }
 }
 
 a {
 	text-decoration: none;
 	color: inherit;
+	cursor: pointer;
+}
+
+select {
+	cursor: pointer;
 }
 
 input[type="checkbox"] {
@@ -50,13 +69,11 @@ label {
 	cursor: pointer;
 }
 
-.red { background-color: $primary; }
-
 .container {
 	margin: 0 auto;
 	width: 100%;
 	padding: 0 15px;
-	max-width: 1024px;
+	max-width: 720px;
 }
 
 .wrapper {
@@ -83,17 +100,17 @@ iframe {
 }
 
 header {
-	background: linear-gradient($primary, darken($primary, 3%));
-	color: #FFF;
+	background-color: #FFF;
+	color: $primary;
 	z-index: 10;
-	box-shadow: $shadow;
-	font-size: 22px;
-	padding: 13px 0;
+	border-bottom: 1px solid $border;
+	padding: 10px 0;
 	padding-top: max(13px, env(safe-area-inset-top));
 	flex-shrink: 0;
 	overflow: hidden; // Chrome otherwise scales the viewport if the content exceeds its dimensions
 	
 	.container {
+		margin-top: 22px;// Temporary fix for too low liquid-glass-effect on iOS 27
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -102,11 +119,13 @@ header {
 	a {
 		padding: 6px;
 		line-height: 1;
+		font-size: 28px;
 	}
 	
 	.title {
 		padding: 0 8px;
-		font-weight: 300;
+		font-family: 'HFT 45';
+		font-size: 24px;
 	}
 }
 
@@ -130,16 +149,15 @@ footer {
 		width: 20%;
 		
 		.icon {
-			font-size: 1.6em;
+			font-size: 28px;
 			padding-bottom: 2px;
-			color: $icon;
-			text-shadow: 1px 1px 1px #FFF;
+			color: $secondary;
 		}
 			
 		.title {
-			font-weight: 300;
 			font-size: 0.8em;
 			color: $secondary;
+			font-weight: 600;
 		}
 		
 		&.active span { color: $primary; }
@@ -150,46 +168,41 @@ footer {
 	background-color: #FFF;
 	border-radius: 3px;
 	border: 1px solid $border;
-	padding: 12px 16px;
+	padding: 12px 14px;
 	display: flex;
 	flex-direction: column;
-	
-	& + .event { margin-top: 12px; }
+	margin-top: 14px;
 	
 	.range {
 		color: $primary;
 		text-transform: uppercase;
-		font-weight: 500;
-		font-size: 13px;
+		font-weight: 600;
+		font-size: 14px;
 	}
 	
 	.title {
-		font-size: 17px;
-		//font-weight: 500;
 		margin-top: 8px;
 	}
 	
 	.link {
 		align-self: flex-end;
 		color: $primary;
-		font-weight: 500;
 		margin-top: 8px;
-		font-size: 13px;
+		font-size: 12px;
 		
 		.icon {
 			margin-left: 2px;
-			font-size: 10px;
 		}
 	}
 }
 
 .article {
-	background-color: #FFF;
-	border-radius: 4px;
-	border: 1px solid $border;
-	overflow: hidden;
+	background-color: $primary;
+	color: #FFF;
+	clip-path: polygon(0% 5px,5px 0%,calc(100% - 10px) 0%,100% 10px,100% calc(100% - 5px),calc(100% - 5px) 100%,10px 100%,0% calc(100% - 10px));
 	display: none;
-	margin-bottom: 12px;
+	margin-top: 16px;
+	padding: 12px 16px;
 	
 	&.display-always, &.display-browser {
 		display: flex;
@@ -204,18 +217,10 @@ footer {
 			display: flex;
 		}
 	}
-	
-	.title {
-		font-weight: 500;
-		font-size: 17px;
-		margin-bottom: 4px;
-	}
 		
-	.strip {
-		padding: 0.5em 0;
-		color: #FFF;
-		font-size: 1.6em;
-		width: 2.5em;
+	.icon {
+		font-size: 1.8em;
+		width: 1.3em;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -224,28 +229,25 @@ footer {
 	
 	.text {
 		flex-grow: 1;
-		padding: 12px 16px;
+		padding: 0 12px;
+	}
+	
+	.title {
+		font-weight: 600;
+		margin-bottom: 4px;
 	}
 	
 	.description {
 		font-size: 14px;
-		color: $secondary;
 	}
 	
 	.arrow {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding-right: 0.8em;;
-		color: $icon;
 		flex-shrink: 0;
 		font-size: 1.4em;
 	}
-}
-
-.list {
-	padding: 20px 0;
-	margin: 0 auto;
 }
 
 .screen {
@@ -256,14 +258,13 @@ footer {
 	
 	.icon {
 		font-size: 64px;
-		text-shadow: 1px 1px 1px #FFF;
-		color: $icon;
+		color: $secondary;
 		margin-bottom: 24px;
 	}
 	
 	.title {
 		font-size: 24px;
-		font-weight: 300;
+		font-family: 'HFT 45';
 	}
 	
 	.line {
@@ -276,28 +277,33 @@ footer {
 	.button {
 		color: #FFF;
 		background-color: $primary;
-		padding: 12px 36px;
-		box-shadow: $shadow;
+		padding: 12px 32px 12px;
 		font-weight: 600;
+		font-size: 1.2em;
 		margin-top: 60px;
-		border-radius: 40px;
 		display: inline-block;
+		clip-path: polygon(0% 5px,5px 0%,calc(100% - 10px) 0%,100% 10px,100% calc(100% - 5px),calc(100% - 5px) 100%,10px 100%,0% calc(100% - 10px));
+		transition: background-color ease 0.2s;
+		line-height: 1;
+		
+		&:hover {
+			background-color: #1E3C82;
+		}
 	}
 }
 
 .dashboard {
-	padding: 24px 0 30px;
 	flex-grow: 1;
 	min-width: 0;// Required for text-overflow: ellipsis
 	
 	.widget {
-		margin-bottom: 28px;
+		margin-top: 28px;
 	}
 				
 	h5 {
-		margin: 0 0 12px;
+		margin: 0 0 8px;
 		color: $secondary;
-		font-weight: 500;
+		font-weight: 600;
 	}
 	
 	.background {
@@ -310,8 +316,7 @@ footer {
 
 nav {
 	background-color: #FFF;
-	border-bottom: 1px solid $border;
-	color: $secondary;
+	border-top: 1px solid $border;
 	z-index: 9;
 	
 	.container {
@@ -322,7 +327,7 @@ nav {
 	}
 	
 	a {
-		padding: 8px 0;
+		padding: 8px 6px;
 		color: $primary;
 		
 		.icon {
@@ -354,9 +359,9 @@ nav {
 	text-align: center;
 	color: $secondary;
 	font-size: 0.7em;
-	font-weight: 300;
+	padding: 26px 0;
 	
-	a { font-weight: 500; }
+	a { font-weight: 600; }
 }
 
 .timetable { $height: 13px; // Perfectly fills the screen on iPhone 12 mini
@@ -390,7 +395,7 @@ nav {
 					
 			.day {
 				font-size: 14px;
-				font-weight: 500;
+				font-weight: 600;
 			}
 			
 			.date {
@@ -427,7 +432,7 @@ nav {
 		color: #FFF;
 		display: flex;
 		flex-direction: column;
-		border-radius: 3px;
+		clip-path: polygon(0% 3px,3px 0%,calc(100% - 6px) 0%,100% 6px,100% calc(100% - 3px),calc(100% - 3px) 100%,6px 100%,0% calc(100% - 6px));
 		
 		.title {
 			font-size: 12px;
@@ -438,7 +443,8 @@ nav {
 			overflow: hidden;
 			text-overflow: ellipsis;
 			word-wrap: break-word;
-			font-weight: 500;
+			font-weight: 600;
+			line-height: 1.1;
 		}
 		
 		.time {			
@@ -521,7 +527,7 @@ nav {
 		.label {
 			padding-left: 4px;
 			width: 42px;
-			font-weight: 500;
+			font-weight: 600;
 			line-height: 1;
 		}
 		
@@ -559,7 +565,7 @@ nav {
 		align-items: center;
 		
 		.description {
-			padding: 14px 0;
+			padding: 15px 0 13px;
 			display: flex;
 			align-items: center;
 			flex-grow: 1;
@@ -568,21 +574,19 @@ nav {
 		}
 		
 		.name {
-			font-weight: 500;
+			font-weight: 600;
 			padding-left: 4px;
 			flex-shrink: 0;
 		}
 		
 		// .amount {
-		// 	font-weight: 300;
 		// 	color: $secondary;
 		// 	padding-left: 4px;
 		// }
 		
 		.details {
-			font-weight: 300;
 			color: $secondary;
-			padding-left: 10px;
+			padding: 0 10px;
 			white-space: nowrap;
 			text-overflow: ellipsis;
 			overflow: hidden;
@@ -594,7 +598,7 @@ nav {
 			align-items: center;
 			justify-content: flex-end;
 			color: $secondary;
-			padding: 2px 6px 0;
+			padding-right: 6px;
 			
 			&::before {
 				content: "\f107";

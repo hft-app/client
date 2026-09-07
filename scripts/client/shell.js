@@ -17,7 +17,7 @@ window.addEventListener('touchmove', e => {
 
 // Bind the listener for the refresh button
 $('header .refresh').on('click', function(){
-	this.classList.add('fa-spin');
+	this.classList.add('la-spin');
 });
 
 // Defer the install prompt and bind it to corresponding links

@@ -144,13 +144,13 @@ class Table {
 							<div class="info">
 								{{#lecturer}}
 									<div class="lecturer data">
-										<span class="icon fa-solid fa-user"></span>
+										<span class="icon las la-user"></span>
 										<span>{{.}}</span>
 									</div>
 								{{/lecturer}}
 								{{#room}}
 									<div class="room data">
-										<span class="icon fa-solid fa-location-dot"></span>
+										<span class="icon las la-map-marker"></span>
 										<span>{{.}}</span>
 									</div>
 								{{/room}}

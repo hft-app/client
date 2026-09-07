@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<div class="screen">
 			<div class="container">
-				<div class="icon fa-solid fa-circle-question"></div>
+				<div class="icon las la-folder-open"></div>
 				<div class="title">Nichts gefunden</div>
 				<div class="line"></div>
 				<div class="info">
@@ -15,20 +15,6 @@
 {{/subjects.length}}
 {{#subjects.length}}
 	<script type="module" src="scripts/client/courses.js"></script>
-
-	<nav>
-		<div class="bar container">
-			<a class="reset">
-				<span class="icon fa-regular fa-trash-can"></span>
-				<span>Auswahl leeren</span>
-			</a>
-			<a class="save">
-				<span class="status-active icon fa-solid fa-spin fa-circle-notch"></span>
-				<span class="status-idle icon fa-solid fa-check"></span>
-				<span>Speichern</span>
-			</a>
-		</div>
-	</nav>
 	
 	<div class="wrapper">
 		<div class="dashboard">
@@ -63,8 +49,8 @@
 					<div class="container">
 						<h5>Kurse auswählen</h5>
 					</div>
-					<div class="container" style="padding-bottom: 14px; color: #949596; font-size: .7em">
-						<span class="fa-solid fa-circle-info" style="padding-right:2px"></span>
+					<div class="container" style="padding-bottom: 10px; color: #949596; font-size: .7em">
+						<span class="las la-info-circle" style="padding-right:2px"></span>
 						<span>Die Kurse der Fakultät A können im WiSe 26/27 nicht in der App angezeigt werden.</span>
 					</div>
 					<div class="subjects background">
@@ -79,7 +65,7 @@
 											<span class="name">{{name}}</span>
 											<!-- <span class="amount">({{courses.length}})</span> -->
 											<span class="details">{{longName}}</span>
-											<span class="arrow fa-solid"></span>
+											<span class="arrow las"></span>
 										</div>
 									</div>
 									<div class="courses">
@@ -126,4 +112,18 @@
 			</form>
 		</div>
 	</div>
+	
+	<nav>
+		<div class="container">
+			<a class="reset">
+				<span class="icon las la-ban"></span>
+				<span>Alle abwählen</span>
+			</a>
+			<a class="save">
+				<span class="status-active icon las la-spin la-spinner"></span>
+				<span class="status-idle icon las la-check"></span>
+				<span>Speichern</span>
+			</a>
+		</div>
+	</nav>
 {{/subjects.length}}

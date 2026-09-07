@@ -1,0 +1,25 @@
+// @font-face {
+//   font-family: $la-font-name-lar;
+//   font-style: normal;
+//   font-weight: 400;
+//   font-display: auto;
+//   src: url("#{$la-font-path}/la-regular-400.woff2") format("woff2");
+// }
+
+// .#{$la-css-prefix-lar} {
+//   font-family: $la-font-name-lar;
+//   font-weight: 400;
+// }
+
+@font-face {
+  font-family: $la-font-name-las;
+  font-style: normal;
+  font-weight: 900;
+  font-display: auto;
+  src: url("#{$la-font-path}/la-solid-900.woff2") format("woff2");
+}
+
+.#{$la-css-prefix-las} {
+  font-family: $la-font-name-las;
+  font-weight: 900;
+}

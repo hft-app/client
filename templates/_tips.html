@@ -2,7 +2,7 @@
 	<div class="wrapper">
 		<div class="screen">
 			<div class="container">
-				<div class="icon fa-solid fa-circle-question"></div>
+				<div class="icon las la-folder-open"></div>
 				<div class="title">Nichts gefunden</div>
 				<div class="line"></div>
 				<div class="info">
@@ -15,27 +15,25 @@
 {{/list.length}}
 {{#list.length}}
 	<div class="wrapper">
-		<div class="list">
-			<div class="container">
-				{{#list}}
-					<a class="article display-{{display}}" {{#href}}href="{{.}}"{{/href}} {{#external}}target="_blank"{{/external}}>
-						<div class="{{color}} fa-solid fa-{{icon}} strip"></div>
-						<div class="text">
-							<div class="title">{{title}}</div>
-							<div class="description">
-								<p>{{description}}</p>
-							</div>
+		<div class="container">
+			{{#list}}
+				<a class="article display-{{display}}" {{#href}}href="{{.}}"{{/href}} {{#external}}target="_blank"{{/external}}>
+					<div class="icon las la-{{icon}}"></div>
+					<div class="text">
+						<div class="title">{{title}}</div>
+						<div class="description">
+							<p>{{description}}</p>
 						</div>
-						{{#href}}<div class="arrow fa-solid fa-chevron-right"></div>{{/href}}
-					</a>
-				{{/list}}
-				<div class="note">
-					<p>Version {{version}}</p>
-					<p>
-						<a href="/launcher/kb/imprint">Impressum</a> &middot;
-						<a href="/launcher/kb/privacy">Datenschutz</a>
-					</p>
-				</div>
+					</div>
+					{{#href}}<div class="arrow las la-angle-right"></div>{{/href}}
+				</a>
+			{{/list}}
+			<div class="note">
+				<p>Version {{version}}</p>
+				<p>
+					<a href="/launcher/kb/imprint">Impressum</a> &middot;
+					<a href="/launcher/kb/privacy">Datenschutz</a>
+				</p>
 			</div>
 		</div>
 	</div>
