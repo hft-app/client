@@ -62,7 +62,7 @@ class Lectures {
 			currentDay.forEach(async lecture => {
 				var hash = 1;
 				for(var i=0; i<lecture.title.length; i++) hash = (hash * lecture.title.charCodeAt(i) + seed) % 359;
-				lecture.color = 'hsl('+hash+'deg 70% 40%)';
+				lecture.color = 'hsl('+hash+'deg 70% 35%)';
 			});
 			
 			// Add day to timetable
