@@ -14,7 +14,7 @@
 		
 		<script src="/scripts/client/lu.min.js" defer></script>
 		<script src="/scripts/client/shell.js" defer></script>
-		{{^ignoreBodyHeight}}
+		{{#fitBodyHeight}}
 			<script type="text/javascript">
 				/**
 				* Set the body height to window.outerHeight when starting from homescreen.
@@ -26,7 +26,7 @@
 					if(window.matchMedia('(display-mode: standalone)').matches) document.body.style.height = window.outerHeight+'px';
 				});
 			</script>
-		{{/ignoreBodyHeight}}
+		{{/fitBodyHeight}}
 	</head>
 	<body>
 		<header>
