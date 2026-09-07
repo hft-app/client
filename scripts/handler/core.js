@@ -37,7 +37,7 @@ class CoreHandler {
 			version: this.controller.cacheVersion,
 			page: page,
 			module: module,
-			ignoreBodyHeight: await this.controller.idb.state.get('ignoreBodyHeight'),
+			fitBodyHeight: await this.controller.idb.state.get('fitBodyHeight'),
 		}
 		
 		// Setup tabs
