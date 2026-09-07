@@ -99,7 +99,7 @@ body {
 	margin-right: 1.25%;
 }
 .active {
-	background-color: #d41a17;
+	background-color: #E42832;
 	color: #fff;
 }
 .panelItemInner {
@@ -107,7 +107,7 @@ body {
 }
 
 .gruppenkopf {
-	background-color: #d41a17;
+	background-color: #E42832;
 	margin-top:10px;
 	height:40px;
 	padding:10px 0 10px 0;
@@ -122,10 +122,10 @@ body {
 }
 
 .untergruppenkopf {
-	background-color: #df6361;
+	color: #E42832;
+	background-color: #FFAABE;
 	height:26px;
 	padding:4px 0 0 15px;
-	color:#fff;
 	font-size: 1em;
 }
 
