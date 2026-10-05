@@ -157,14 +157,13 @@ class Table {
 								{{/room}}
 							</div>
 							<div class="reactions" style="color: {{color}}">
-								<div class="reaction" data-type="1">
-									<span>🥱</span>
+								<div class="reaction" data-type="4">
+									<span class="icon las la-fast-forward"></span>
+									<span class="text">Ich bin fertig</span>
 								</div>
-								<div class="reaction" data-type="2">
-									<span>😊</span>
-								</div>
-								<div class="reaction" data-type="3">
-									<span>🤯</span>
+								<div class="reaction" data-type="5">
+									<span class="icon las la-hourglass-half"></span>
+									<span class="text">Ich brauche noch</span>
 								</div>
 							</div>
 						</div>
