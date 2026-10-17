@@ -42,3 +42,10 @@ document.querySelectorAll('a[href="SHARE"]').forEach(a => {
 		}
 	});
 });
+
+/**
+ * Set the body height to window.outerHeight when starting from homescreen on iOS.
+ * (100vh and 100dvh are both too short on Safari but too long on Chrome.)
+ * As failsafe, the default is set to be 100svh in CSS.
+ */
+if(/iP(ad|hone|od)/.test(window.navigator.userAgent) && window.matchMedia('(display-mode: standalone)').matches) document.body.style.height = window.outerHeight+'px';
