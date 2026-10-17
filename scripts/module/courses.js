@@ -8,14 +8,14 @@ class Courses {
 		// Update course enrollments, timetable interval and other settings
 		if(request.GET.has('submit')) {
 			var enrollments = {};
-			var fitBodyHeight = false;
+			var smallBodyHeight = false;
 			for(var [key, value] of request.POST) {
 				if(key == 'timetableStartOption' || key == 'timetableEndOption') {
 					await this.handler.controller.idb.state.put(value, key);
 					continue;
 				}
-				if(key == 'fitBodyHeight') {
-					fitBodyHeight = true;
+				if(key == 'smallBodyHeight') {
+					smallBodyHeight = true;
 					continue;
 				}
 				var [subject, course] = key.split('/');
@@ -23,7 +23,7 @@ class Courses {
 				enrollments[subject].push(course);
 			}
 			await this.handler.controller.idb.state.put(enrollments, 'enrollments');
-			await this.handler.controller.idb.state.put(fitBodyHeight, 'fitBodyHeight');
+			await this.handler.controller.idb.state.put(smallBodyHeight, 'smallBodyHeight');
 			await this.handler.controller.refresh(true);
 			return Response.redirect('/lectures');
 		}
